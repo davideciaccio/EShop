@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EShop - Home</title>
+  <!-- Collegamento al nostro unico foglio di stile -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Font Awesome (opzionale, ma comodo per le icone stile Amazon) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<!-- NAVIGATION BAR (Comune) -->
+<header>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a href="home.html">E-Shop Logo</a>
+    </div>
+
+    <div class="nav-search">
+      <form action="home.html" method="GET" id="searchForm">
+        <input type="text" id="searchInput" placeholder="Cerca prodotti..." required>
+        <button type="submit"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+
+    <div class="nav-user-info">
+      <span>Ciao, Cliente!</span>
+      <div class="dropdown">
+        <button class="dropbtn">Account <i class="fas fa-caret-down"></i></button>
+        <div class="dropdown-content">
+          <a href="#">I miei ordini</a>
+          <a href="#">Impostazioni</a>
+          <a href="login.html">Logout</a>
+        </div>
+      </div>
+      <a href="carrello.html" class="cart-link">
+        <i class="fas fa-shopping-cart"></i> Carrello
+      </a>
+    </div>
+  </nav>
+</header>
+
+<!-- CONTENUTO PRINCIPALE (Cambia per ogni pagina) -->
+<main class="container">
+  <!-- Inseriremo qui sidebar e grid prodotti per la home -->
+  <h1>Benvenuti in E-Shop</h1>
+</main>
+
+<!-- FOOTER (Comune) -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Informazioni</h4>
+      <a href="#">Chi siamo</a>
+      <a href="#">Lavora con noi</a>
+    </div>
+    <div class="footer-section">
+      <h4>Assistenza</h4>
+      <a href="#">Resi e Rimborsi</a>
+      <a href="#">Servizio Clienti</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 E-Shop. Tutti i diritti riservati. (Disclaimer: Progetto Universitario)</p>
+  </div>
+</footer>
+
+<!-- Collegamento al nostro script Javascript -->
+<script src="js/script.js"></script>
+</body>
+</html>
