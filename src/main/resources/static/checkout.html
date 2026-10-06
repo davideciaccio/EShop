@@ -3,71 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EShop - Home</title>
-    <!-- Collegamento al nostro unico foglio di stile -->
+    <title>EShop - Checkout</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- Font Awesome (opzionale, ma comodo per le icone stile Amazon) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-<!-- NAVIGATION BAR (Comune) -->
+<!-- NAVBAR (Identica a home.html) -->
 <header>
     <nav class="navbar">
         <div class="nav-brand">
-            <a href="home.html">E-Shop Logo</a>
+            <a href="home.html">
+                <img src="images/logo_eshop.jpg" alt="E-Shop Logo">
+            </a>
         </div>
 
         <div class="nav-search">
             <form action="home.html" method="GET" id="searchForm">
                 <input type="text" id="searchInput" placeholder="Cerca prodotti..." required>
-                <button type="submit"><i class="fas fa-search"></i></button>
+                <button type="submit">Cerca</button>
             </form>
         </div>
 
         <div class="nav-user-info">
-            <span>Ciao, Cliente!</span>
-            <div class="dropdown">
-                <button class="dropbtn">Account <i class="fas fa-caret-down"></i></button>
-                <div class="dropdown-content">
+            <div class="account-dropdown-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <div class="account-text-group">
+                    <span>Ciao, Cliente!</span>
+                    <div class="account-trigger">Account</div>
+                </div>
+                <div class="dropdown-menu">
+                    <a href="#">Il mio account</a>
                     <a href="#">I miei ordini</a>
-                    <a href="#">Impostazioni</a>
-                    <a href="login.html">Logout</a>
+                    <a href="#">La mia lista dei desideri</a>
+                    <a href="login.html">Esci</a>
                 </div>
             </div>
-            <a href="carrello.html" class="cart-link">
-                <i class="fas fa-shopping-cart"></i> Carrello
+
+            <a href="carrello.html" style="display: flex; align-items: center; gap: 8px; color: black; text-decoration: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span style="font-size: 1.1em; font-weight: bold;">Carrello</span>
             </a>
         </div>
     </nav>
 </header>
 
-<!-- CONTENUTO PRINCIPALE (Cambia per ogni pagina) -->
-<main class="container">
-    <!-- Inseriremo qui sidebar e grid prodotti per la home -->
-    <h1>Benvenuti in E-Shop</h1>
+<!-- CONTENUTO PRINCIPALE CHECKOUT -->
+<main class="checkout-wrapper">
+    <div class="checkout-container">
+
+        <!-- Il form punta alla pagina conferma.html come richiesto dal punto 3f -->
+        <form action="conferma.html" method="GET">
+
+            <!-- CARD: INDIRIZZO DI SPEDIZIONE -->
+            <div class="form-card">
+                <h2>1. Indirizzo di spedizione</h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" placeholder="Es. Mario" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cognome">Cognome</label>
+                        <input type="text" id="cognome" name="cognome" placeholder="Es. Rossi" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="indirizzo">Indirizzo completo</label>
+                    <input type="text" id="indirizzo" name="indirizzo" placeholder="Via Roma 123" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="citta">Città</label>
+                        <input type="text" id="citta" name="citta" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cap">CAP</label>
+                        <input type="text" id="cap" name="cap" pattern="[0-9]{5}" title="Inserisci 5 numeri" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD: METODO DI PAGAMENTO -->
+            <div class="form-card">
+                <h2>2. Metodo di Pagamento</h2>
+
+                <div class="form-group">
+                    <label for="metodo_pagamento">Seleziona modalità</label>
+                    <select id="metodo_pagamento" name="metodo_pagamento" required onchange="mostraDatiCarta()">
+                        <option value="">-- Scegli un metodo --</option>
+                        <option value="carta">Carta di Credito / Debito</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="bonifico">Bonifico Bancario</option>
+                    </select>
+                </div>
+
+                <!-- Dati Carta (Simulazione: visibili solo se si sceglie Carta) -->
+                <div id="datiCarta" style="display: none;">
+                    <div class="form-group">
+                        <label for="numero_carta">Numero Carta</label>
+                        <input type="text" id="numero_carta" placeholder="0000 0000 0000 0000">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="scadenza">Scadenza (MM/AA)</label>
+                            <input type="text" id="scadenza" placeholder="12/26">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="123">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIEPILOGO FINALE E PULSANTE -->
+            <div class="checkout-total-card">
+                <h3>Totale da pagare: 1097,00 €</h3>
+                <button type="submit" class="btn-action" style="font-size: 1.2em; padding: 15px 30px; width: auto;">
+                    Conferma Ordine e Paga
+                </button>
+            </div>
+
+        </form>
+    </div>
 </main>
 
-<!-- FOOTER (Comune) -->
+<!-- FOOTER (Identico a home.html) -->
 <footer>
-    <div class="footer-content">
-        <div class="footer-section">
-            <h4>Informazioni</h4>
-            <a href="#">Chi siamo</a>
-            <a href="#">Lavora con noi</a>
-        </div>
-        <div class="footer-section">
-            <h4>Assistenza</h4>
-            <a href="#">Resi e Rimborsi</a>
-            <a href="#">Servizio Clienti</a>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>&copy; 2026 E-Shop. Tutti i diritti riservati. (Disclaimer: Progetto Universitario)</p>
-    </div>
+    <p>&copy; 2026 E-Shop. Tutti i diritti riservati.</p>
 </footer>
 
-<!-- Collegamento al nostro script Javascript -->
+<!-- Piccolo script in pagina per la simulazione del metodo di pagamento -->
+<script>
+    function mostraDatiCarta() {
+        const metodo = document.getElementById("metodo_pagamento").value;
+        const divCarta = document.getElementById("datiCarta");
+
+        if (metodo === "carta") {
+            divCarta.style.display = "block";
+            // Rende i campi obbligatori se viene scelta la carta
+            document.getElementById("numero_carta").required = true;
+            document.getElementById("scadenza").required = true;
+            document.getElementById("cvv").required = true;
+        } else {
+            divCarta.style.display = "none";
+            document.getElementById("numero_carta").required = false;
+            document.getElementById("scadenza").required = false;
+            document.getElementById("cvv").required = false;
+        }
+    }
+</script>
+
 <script src="js/script.js"></script>
 </body>
 </html>

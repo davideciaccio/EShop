@@ -1,10 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EShop - Registrazione</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+<div class="checkout-wrapper">
+    <div class="form-card" style="max-width: 600px; width: 100%; margin: 0 auto;">
+        <div class="login-logo-container">
+            <img src="images/logo_eshop.jpg" alt="Logo EShop">
+        </div>
+
+        <h2 style="text-align: center; border-bottom: none; margin-bottom: 5px;">Registrati</h2>
+        <p style="text-align: center; margin-bottom: 25px; color: #555;">EShop è un sito di ecommerce</p>
+
+        <form id="registerForm">
+            <!-- Prima riga -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div class="form-group">
+                    <label for="cognome">Cognome</label>
+                    <input type="text" id="cognome" name="cognome" required>
+                </div>
+            </div>
+
+            <!-- Seconda riga -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" name="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmEmail">Conferma email</label>
+                    <input type="email" id="confirmEmail" name="confirmEmail" required>
+                </div>
+            </div>
+
+            <!-- Terza riga -->
+            <div class="form-row">
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                        <label for="regPassword" style="margin-bottom: 0;">Crea una password</label>
+                        <a href="#" id="togglePassword" style="font-size: 0.8em; color: #000000; text-decoration: none;">Mostra</a>
+                    </div>
+                    <input type="password" id="regPassword" name="regPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Conferma password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+            </div>
+
+            <!-- Quarta riga -->
+            <div class="form-group">
+                <label for="nazione">Nazione</label>
+                <select id="nazione" name="nazione" required>
+                    <option value="" disabled selected>Seleziona una nazione</option>
+                    <option value="IT">Italia</option>
+                    <option value="US">Stati Uniti</option>
+                    <option value="UK">Regno Unito</option>
+                    <option value="FR">Francia</option>
+                    <option value="DE">Germania</option>
+                    <option value="ES">Spagna</option>
+                </select>
+            </div>
+
+            <button type="submit" class="nav-search-btn-style" style="width: 100%; margin-top: 20px;">Registrati</button>
+            <div id="registerError" style="color: red; margin-top: 10px; display: none; text-align: center; font-weight: bold;"></div>
+        </form>
+
+        <p style="text-align: center; margin-top: 20px;">Hai già un account? <a href="login.html" style="font-weight: bold; color: #000000;">Accedi</a></p>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2026 E-Shop. Tutti i diritti riservati.</p>
+</footer>
+
+<script src="js/script.js"></script>
 </body>
 </html>

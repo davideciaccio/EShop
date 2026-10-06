@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EShop - Login</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+<div class="checkout-wrapper">
+    <div class="form-card" style="max-width: 400px; width: 100%; margin: 0 auto;">
+        <div class="login-logo-container">
+            <img src="images/logo_eshop.jpg" alt="Logo EShop">
+        </div>
+
+        <p style="text-align: center; margin-bottom: 20px;">Non hai un account? <a href="registrazione.html" style="font-weight: bold; color: #000000;">Registrati</a></p>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email">
+            </div>
+
+            <div class="form-group">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <label for="password" style="margin-bottom: 0;">Password</label>
+                    <a href="#" style="font-size: 0.8em; color: #000000;">Mostra password</a>
+                </div>
+                <input type="password" id="password" name="password">
+                <a href="#" style="font-size: 0.9em; color: #000000; margin-top: 5px; display: inline-block;">Password dimenticata?</a>
+            </div>
+
+            <div class="form-group" style="flex-direction: row; align-items: center; gap: 10px;">
+                <input type="checkbox" id="ricorda" name="ricorda" style="width: auto;">
+                <label for="ricorda" style="margin-bottom: 0; font-weight: normal;">Ricorda</label>
+            </div>
+
+            <button type="submit" class="nav-search-btn-style" style="width: 100%; margin-top: 20px;">Log in</button>
+            <div id="loginError" style="color: red; margin-top: 10px; display: none;"></div>
+        </form>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2026 E-Shop. Tutti i diritti riservati.</p>
+</footer>
+
+<!-- Script Javascript -->
+<script src="js/script.js"></script>
 </body>
 </html>

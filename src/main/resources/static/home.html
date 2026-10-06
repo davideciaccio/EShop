@@ -4,70 +4,170 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EShop - Home</title>
-  <!-- Collegamento al nostro unico foglio di stile -->
   <link rel="stylesheet" href="css/style.css">
-  <!-- Font Awesome (opzionale, ma comodo per le icone stile Amazon) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-<!-- NAVIGATION BAR (Comune) -->
+<!-- NAVBAR -->
 <header>
   <nav class="navbar">
+    <!-- Logo ingrandito -->
     <div class="nav-brand">
-      <a href="home.html">E-Shop Logo</a>
+      <a href="home.html">
+        <img src="images/logo_eshop.jpg" alt="E-Shop Logo">
+      </a>
     </div>
 
     <div class="nav-search">
+      <!-- Il form porta sempre alla home come richiesto dal punto 3c -->
       <form action="home.html" method="GET" id="searchForm">
         <input type="text" id="searchInput" placeholder="Cerca prodotti..." required>
-        <button type="submit"><i class="fas fa-search"></i></button>
+        <button type="submit">Cerca</button>
       </form>
     </div>
 
     <div class="nav-user-info">
-      <span>Ciao, Cliente!</span>
-      <div class="dropdown">
-        <button class="dropbtn">Account <i class="fas fa-caret-down"></i></button>
-        <div class="dropdown-content">
+
+      <!-- Menu Account (Dropdown) con Omino SVG inline -->
+      <div class="account-dropdown-container">
+        <!-- SVG Omino Nero -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <div class="account-text-group">
+          <span>Ciao, Cliente!</span>
+          <div class="account-trigger">Account</div>
+        </div>
+        <div class="dropdown-menu">
+          <a href="#">Il mio account</a>
           <a href="#">I miei ordini</a>
-          <a href="#">Impostazioni</a>
-          <a href="login.html">Logout</a>
+          <a href="#">La mia lista dei desideri</a>
+          <a href="login.html">Esci</a>
         </div>
       </div>
-      <a href="carrello.html" class="cart-link">
-        <i class="fas fa-shopping-cart"></i> Carrello
+
+      <!-- Icona Carrello (Codice SVG Inline) con Testo integrato -->
+      <a href="carrello.html" style="display: flex; align-items: center; gap: 8px; color: black; text-decoration: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span style="font-size: 1.1em; font-weight: bold;">Carrello</span>
       </a>
+
     </div>
   </nav>
 </header>
 
-<!-- CONTENUTO PRINCIPALE (Cambia per ogni pagina) -->
+<!-- CONTENUTO PRINCIPALE -->
 <main class="container">
-  <!-- Inseriremo qui sidebar e grid prodotti per la home -->
-  <h1>Benvenuti in E-Shop</h1>
+
+  <!-- SIDEBAR SINISTRA -->
+  <aside class="sidebar">
+    <h3>Categorie</h3>
+    <ul>
+      <li><a href="#">Elettronica</a></li>
+      <li><a href="#">Informatica</a></li>
+      <li><a href="#">Libri</a></li>
+      <li><a href="#">Casa e Cucina</a></li>
+      <li><a href="#">Videogiochi</a></li>
+    </ul>
+  </aside>
+
+  <!-- GRID PRODOTTI (4 Prodotti come richiesto) -->
+  <section class="products-grid">
+    <!-- Prodotto 1 -->
+    <div class="product-card">
+      <div class="img-container">
+        <img src="https://via.placeholder.com/300x200" alt="Smartphone">
+      </div>
+      <h4>Smartphone Ultra 5G</h4>
+      <div class="stars">★★★★☆</div>
+      <div class="price">699,00 €</div>
+      <div class="btn-container">
+        <button class="btn-action" onclick="mostraModaleCarrello()">Aggiungi al carrello</button>
+        <button class="btn-action" onclick="mostraModaleInfo('Smartphone Ultra 5G', 'Uno smartphone potentissimo con fotocamera da 108MP e batteria a lunga durata.', 'https://via.placeholder.com/400x300')">Maggiori informazioni</button>
+      </div>
+    </div>
+
+    <!-- Prodotto 2 -->
+    <div class="product-card">
+      <div class="img-container">
+        <img src="https://via.placeholder.com/300x200" alt="Laptop">
+      </div>
+      <h4>Laptop Pro 15"</h4>
+      <div class="stars">★★★★★</div>
+      <div class="price">1299,00 €</div>
+      <div class="btn-container">
+        <button class="btn-action" onclick="mostraModaleCarrello()">Aggiungi al carrello</button>
+        <button class="btn-action" onclick="mostraModaleInfo('Laptop Pro 15', 'Processore i9, 16GB RAM, SSD 1TB. Perfetto per il lavoro pesante.', 'https://via.placeholder.com/400x300')">Maggiori informazioni</button>
+      </div>
+    </div>
+
+    <!-- Prodotto 3 -->
+    <div class="product-card">
+      <div class="img-container">
+        <img src="https://via.placeholder.com/300x200" alt="Cuffie">
+      </div>
+      <h4>Cuffie Wireless Noise Cancelling</h4>
+      <div class="stars">★★★★☆</div>
+      <div class="price">199,00 €</div>
+      <div class="btn-container">
+        <button class="btn-action" onclick="mostraModaleCarrello()">Aggiungi al carrello</button>
+        <button class="btn-action" onclick="mostraModaleInfo('Cuffie Wireless', 'Isolati dal mondo con la cancellazione attiva del rumore. Autonomia 30h.', 'https://via.placeholder.com/400x300')">Maggiori informazioni</button>
+      </div>
+    </div>
+
+    <!-- Prodotto 4 -->
+    <div class="product-card">
+      <div class="img-container">
+        <img src="https://via.placeholder.com/300x200" alt="Smartwatch">
+      </div>
+      <h4>Smartwatch Sport Fitness</h4>
+      <div class="stars">★★★☆☆</div>
+      <div class="price">89,00 €</div>
+      <div class="btn-container">
+        <button class="btn-action" onclick="mostraModaleCarrello()">Aggiungi al carrello</button>
+        <button class="btn-action" onclick="mostraModaleInfo('Smartwatch Sport', 'Monitora il tuo battito cardiaco, i passi e il sonno. Resistente all\'acqua.', 'https://via.placeholder.com/400x300')">Maggiori informazioni</button>
+      </div>
+    </div>
+  </section>
 </main>
 
-<!-- FOOTER (Comune) -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-content">
-    <div class="footer-section">
-      <h4>Informazioni</h4>
-      <a href="#">Chi siamo</a>
-      <a href="#">Lavora con noi</a>
-    </div>
-    <div class="footer-section">
-      <h4>Assistenza</h4>
-      <a href="#">Resi e Rimborsi</a>
-      <a href="#">Servizio Clienti</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2026 E-Shop. Tutti i diritti riservati. (Disclaimer: Progetto Universitario)</p>
-  </div>
+  <p>&copy; 2026 E-Shop. Tutti i diritti riservati.</p>
 </footer>
 
-<!-- Collegamento al nostro script Javascript -->
+<!-- MODALI (Nascoste di default, attivate tramite JS) -->
+
+<!-- Modale Conferma Carrello -->
+<div id="modalCarrello" class="modal">
+  <div class="modal-content">
+    <h3>Prodotto aggiunto!</h3>
+    <p style="margin: 15px 0;">Il prodotto è stato aggiunto al carrello con successo.</p>
+    <div class="btn-container" style="flex-direction: row; justify-content: center; margin-top: 20px;">
+      <button class="close-btn" style="margin-top: 0;" onclick="chiudiModale('modalCarrello')">Continua acquisti</button>
+      <a href="carrello.html" style="text-decoration: none;"><button class="btn-action" style="width: auto; padding: 10px 20px;">Vai al carrello</button></a>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Maggiori Info -->
+<div id="modalInfo" class="modal">
+  <div class="modal-content">
+    <h3 id="infoTitolo" style="margin-bottom: 15px;">Titolo Prodotto</h3>
+    <div class="img-container" style="height: auto; max-height: 250px;">
+      <img id="infoImmagine" src="" alt="Dettaglio Prodotto">
+    </div>
+    <p id="infoDescrizione" style="margin: 15px 0; line-height: 1.5;">Descrizione dettagliata qui...</p>
+    <button class="close-btn" onclick="chiudiModale('modalInfo')">Chiudi</button>
+  </div>
+</div>
+
+<!-- Script Javascript -->
 <script src="js/script.js"></script>
 </body>
 </html>
