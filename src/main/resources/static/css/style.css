@@ -36,10 +36,36 @@ body {
     font-weight: bold;
 }
 
-/* Barra di ricerca */
-.nav-search form {
+/* Barra di ricerca e Filtro */
+.nav-search-wrapper {
     display: flex;
-    width: 600px;
+    gap: 10px;
+    align-items: center;
+    flex: 1;
+    max-width: 600px; /* RIDOTTO: Questo evita che la barra rubi spazio all'omino e al carrello */
+    margin: 0 40px;
+}
+
+.nav-user-info {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    white-space: nowrap; /* Impedisce che il testo vada a capo e si impili */
+    flex-shrink: 0; /* Impedisce alla barra di comprimersi se manca spazio */
+}
+
+#categoryFilter {
+    padding: 12px;
+    border: 2px solid #000000;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    min-width: 180px; /* Impedisce che si rimpicciolisca troppo */
+}
+
+.nav-search {
+    display: flex;
+    flex-grow: 1; /* Fa espandere l'input di testo per riempire lo spazio rimanente */
 }
 
 .nav-search input {
@@ -51,6 +77,7 @@ body {
     background-color: #FFFFFF;
     color: #000000;
     font-size: 1rem;
+    min-width: 200px; /* Impedisce all'input di schiacciarsi */
 }
 
 .nav-search input:focus {
@@ -72,13 +99,6 @@ body {
 .nav-search button:hover {
     background-color: #333333;
     color: #FFFFFF;
-}
-
-/* --- SEZIONE ACCOUNT (Dropdown) --- */
-.nav-user-info {
-    display: flex;
-    align-items: center;
-    gap: 30px;
 }
 
 .account-dropdown-container {

@@ -17,18 +17,18 @@
             </a>
         </div>
 
-        <div class="nav-search">
-            <form action="home.html" method="GET" id="searchForm">
-                <input type="text" id="searchInput" placeholder="Cerca prodotti..." required>
-                <button type="submit">Cerca</button>
-            </form>
+        <div class="nav-search-wrapper">
+            <select id="categoryFilter" onchange="window.location.href='home.html'">
+                <option value="all">Filtra per categoria (vai alla Home)</option>
+            </select>
+            <div class="nav-search">
+                <input type="text" id="searchInput" placeholder="Cerca prodotti (vai alla Home)...">
+                <button type="button" onclick="window.location.href='home.html'">Cerca</button>
+            </div>
         </div>
 
         <div class="nav-user-info">
-
-            <!-- Menu Account (Dropdown) -->
             <div class="account-dropdown-container">
-                <!-- SVG Omino Nero -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                     <circle cx="12" cy="7" r="4"></circle>
@@ -40,12 +40,10 @@
                 <div class="dropdown-menu">
                     <a href="#">Il mio account</a>
                     <a href="#">I miei ordini</a>
-                    <a href="#">La mia lista dei desideri</a>
                     <a href="login.html">Esci</a>
                 </div>
             </div>
 
-            <!-- Icona Carrello -->
             <a href="carrello.html" style="display: flex; align-items: center; gap: 8px; color: black; text-decoration: none;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
                     <circle cx="9" cy="21" r="1"></circle>
@@ -54,7 +52,6 @@
                 </svg>
                 <span style="font-size: 1.1em; font-weight: bold;">Carrello</span>
             </a>
-
         </div>
     </nav>
 </header>
@@ -62,72 +59,29 @@
 <!-- CONTENUTO PRINCIPALE CARRELLO -->
 <main class="cart-container">
 
-    <!-- LISTA PRODOTTI NEL CARRELLO -->
     <section class="cart-items-section">
         <h2>Il tuo carrello</h2>
-
-        <!-- Prodotto 1 (Orizzontale) -->
-        <div class="cart-item-card">
-            <div class="cart-item-img">
-                <img src="https://pisces.bbystatic.com/prescaled/500/500/image2/BestBuy_US/images/products/c379ba4c-68af-4410-95ba-c739979192f7.jpg" alt="Smartphone">
-            </div>
-            <div class="cart-item-details">
-                <h4>Smartphone Ultra 5G</h4>
-                <p>Uno smartphone potentissimo con fotocamera da 108MP e batteria a lunga durata.</p>
-                <p style="color: green; font-weight: bold;">Disponibilità immediata</p>
-                <div class="cart-quantity-controls">
-                    <label for="qty1">Quantità:</label>
-                    <!-- L'evento onchange richiama la funzione in script.js -->
-                    <input type="number" id="qty1" value="1" min="1" onchange="aggiornaTotale()">
-                    <button class="btn-action" style="width: auto; padding: 5px 15px; margin-left: 15px;">Rimuovi</button>
-                </div>
-            </div>
-            <!-- Prezzo allineato a destra -->
-            <div class="cart-item-price">
-                <div class="price" id="price1" data-valore="699.00">699,00 €</div>
-            </div>
-        </div>
-
-        <!-- Prodotto 2 (Orizzontale) -->
-        <div class="cart-item-card">
-            <div class="cart-item-img">
-                <img src="https://i2.adis.ws/i/Argos/8496609_R_Z001A" alt="Cuffie">
-            </div>
-            <div class="cart-item-details">
-                <h4>Cuffie Wireless Noise Cancelling</h4>
-                <p>Isolati dal mondo con la cancellazione attiva del rumore. Autonomia 30h.</p>
-                <p style="color: green; font-weight: bold;">Disponibilità immediata</p>
-                <div class="cart-quantity-controls">
-                    <label for="qty2">Quantità:</label>
-                    <input type="number" id="qty2" value="2" min="1" onchange="aggiornaTotale()">
-                    <button class="btn-action" style="width: auto; padding: 5px 15px; margin-left: 15px;">Rimuovi</button>
-                </div>
-            </div>
-            <div class="cart-item-price">
-                <div class="price" id="price2" data-valore="199.00">199,00 €</div>
-            </div>
+        <!-- Contenitore Vuoto: Sarà JS a riempirlo -->
+        <div id="mainCartItemsContainer">
+            <p>Caricamento carrello...</p>
         </div>
     </section>
 
     <!-- SIDEBAR DESTRA: RIEPILOGO TOTALE -->
     <aside class="cart-summary-sidebar">
         <h3>Riepilogo Ordine</h3>
-
         <div class="summary-row">
             <span>Subtotale articoli:</span>
-            <span id="subtotale">1097,00 €</span>
+            <span id="mainSubtotale">0,00 €</span>
         </div>
-
         <div class="summary-row">
             <span>Costi di spedizione:</span>
             <span>Gratis</span>
         </div>
-
         <div class="summary-total">
             <span>Totale:</span>
-            <span id="totaleFinale">1097,00 €</span>
+            <span id="mainTotaleFinale">0,00 €</span>
         </div>
-
         <a href="checkout.html" style="text-decoration: none;">
             <button class="btn-action" style="font-size: 1.1em; padding: 15px;">Procedi al Check-out</button>
         </a>
@@ -140,7 +94,6 @@
     <p>&copy; 2026 E-Shop. Tutti i diritti riservati.</p>
 </footer>
 
-<!-- Collegamento allo script esterno -->
 <script src="js/script.js"></script>
 </body>
 </html>
