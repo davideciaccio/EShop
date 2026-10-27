@@ -6,12 +6,10 @@
   <title>EShop - Home</title>
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Aggiunta CDN jQuery per soddisfare il Punto 4 -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <!-- Aggiunta FontAwesome per l'icona del cuoricino (Preferiti) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body style="position: relative; padding-bottom: 0;">
 
 <!-- NAVBAR -->
 <header>
@@ -78,12 +76,10 @@
       <h3>Azioni</h3>
       <ul>
         <li><a href="#" id="resetFiltersBtn">Azzera Filtri</a></li>
-        <!-- Punto 5b: Bottone visualizza solo preferiti -->
         <li><a href="#" id="showFavoritesBtn"><i class="fas fa-heart" style="color: red;"></i> Solo Preferiti</a></li>
       </ul>
 
       <h3 style="margin-top: 20px;">Ordina Per</h3>
-      <!-- Punto 5a: Ordinamento -->
       <select id="sortFilter" style="width: 100%; padding: 8px; margin-top: 10px; border: 2px solid #000; border-radius: 4px;">
         <option value="default">Rilevanza</option>
         <option value="priceAsc">Prezzo: Crescente</option>
@@ -101,44 +97,29 @@
       </ul>
     </aside>
 
-    <!-- LISTA PRODOTTI -->
+    <!-- LISTA PRODOTTI E PULSANTE ALTRO -->
     <div style="flex: 1; display: flex; flex-direction: column;">
       <h3 id="noResultsMessage" style="display: none; text-align: center; margin-top: 50px; color: red;">Nessun prodotto trovato.</h3>
+
       <section class="products-grid" id="productsContainer">
-        <!-- Generato da jQuery -->
+        <!-- I prodotti XML verranno iniettati qui da jQuery -->
       </section>
-    </div>
 
-  </div>
-
-  <!-- BARRA CARRELLO BOTTOM -->
-  <div id="cartBottomBar" style="display: none; width: 100%; background-color: #FFFFFF; border: 4px solid #000; box-shadow: 4px 4px 0px #000; border-radius: 12px; margin-top: 40px; padding: 20px 40px; box-sizing: border-box;">
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 15px;">
-      <h3 style="margin: 0; font-size: 1.5em; text-transform: uppercase;">Carrello Veloce</h3>
-      <button id="closeCartBtn" style="background: none; border: none; font-size: 2em; font-weight: bold; cursor: pointer;">&times;</button>
-    </div>
-
-    <div id="cartItemsContainer" style="display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px;">
-      <!-- Generato da jQuery -->
-    </div>
-
-    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 2px solid #000; padding-top: 15px; margin-top: 10px;">
-      <span style="font-size: 1.5em; font-weight: bold;">Totale: <span id="cartTotal">0,00 €</span></span>
-      <div style="display: flex; gap: 15px;">
-        <a href="carrello.html" class="btn-action" style="text-decoration: none; padding: 10px 20px; font-size: 1.1em; background-color: #fff; border: 2px solid #000; color: #000; text-align: center;">Apri Pagina Carrello</a>
-        <a href="checkout.html" class="btn-action" style="text-decoration: none; padding: 10px 20px; font-size: 1.1em; text-align: center;">Vai al Checkout</a>
+      <!-- Pulsante per accodare il secondo file XML -->
+      <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+        <button id="loadMoreBtn" class="btn-action" style="padding: 15px 40px; font-size: 1.2em; width: auto; display: none;">Carica Altro</button>
       </div>
     </div>
-  </div>
 
+  </div>
 </main>
 
 <!-- FOOTER -->
 <footer>
-  <p>&copy; 2026 E-Shop. Tutti i diritti riservati.</p>
+  <p>© 2026 E-Shop. Tutti i diritti riservati.</p>
 </footer>
 
-<!-- MODALE DETTAGLI (Punto 5c) -->
+<!-- MODALE DETTAGLI -->
 <div id="modalInfo" class="modal">
   <div class="modal-content">
     <h3 id="infoTitolo" style="margin-bottom: 15px;">Titolo Prodotto</h3>
@@ -150,7 +131,7 @@
     <p id="infoDisponibilita" style="color: green; margin-bottom: 20px;">Disponibilità: N/A</p>
 
     <div style="display: flex; gap: 15px; justify-content: center;">
-      <button class="btn-action" id="modalAddToCartBtn">Aggiungi al carrello</button>
+      <button class="btn-action add-to-cart-btn" id="modalAddToCartBtn">Aggiungi al carrello</button>
       <button class="close-btn" id="closeModalInfoBtn" style="margin-top: 0;">Chiudi</button>
     </div>
   </div>

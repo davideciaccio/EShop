@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prodotti xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="prodotto.xsd">
+    <prodotto>
+        <id>5</id>
+        <name>Laptop Gaming RGB</name>
+        <category>laptop</category>
+        <price>1599.00</price>
+        <stock>3</stock>
+        <image><![CDATA[https://i5.walmartimages.com/asr/b194e290-22bb-45c0-936d-4f6e784e0d6d_1.9fb9b8c4ebd9e389c893b63398ed5a2a.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff]]></image>
+        <descrizione>Scheda video RTX 4070, schermo 144Hz. Il sogno dei gamer.</descrizione>
+    </prodotto>
+    <prodotto>
+        <id>6</id>
+        <name>Smartphone Base Lite</name>
+        <category>smartphone</category>
+        <price>249.00</price>
+        <stock>12</stock>
+        <image>https://ss7.vzw.com/is/image/VerizonWireless/samsung-galaxy-s26-ult-black-sms948uzkv-sms948uzkev-sms948uzkfv</image>
+        <descrizione>Economico, affidabile e con tutto l'essenziale che ti serve.</descrizione>
+    </prodotto>
+    <prodotto>
+        <id>7</id>
+        <name>Speaker Bluetooth Waterproof</name>
+        <category>audio</category>
+        <price>59.00</price>
+        <stock>30</stock>
+        <image><![CDATA[https://i5.walmartimages.com/asr/f8161823-4fae-4f0e-a0d4-25e646e524c0.c69629f8d5f20646ac5f6719f59293eb.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff]]></image>
+        <descrizione>Porta la musica sempre con te, anche in piscina o sotto la doccia.</descrizione>
+    </prodotto>
+    <prodotto>
+        <id>8</id>
+        <name>Auricolari True Wireless</name>
+        <category>audio</category>
+        <price>129.00</price>
+        <stock>25</stock>
+        <image><![CDATA[https://i5.walmartimages.com/asr/ae0e2d16-4ede-4ca1-a53a-c7d15d729a39.869bf1901f807850ea58e35e9469edba.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff]]></image>
+        <descrizione>Leggeri e comodi. Case di ricarica rapida incluso.</descrizione>
+    </prodotto>
+</prodotti>

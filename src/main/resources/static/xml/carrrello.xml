@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<carrello xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="carrello.xsd">
+    <item>
+        <productId>1</productId>
+        <quantity>1</quantity>
+    </item>
+    <item>
+        <productId>3</productId>
+        <quantity>2</quantity>
+    </item>
+</carrello>

@@ -1,29 +1,25 @@
-// --- 1. DEFINIZIONE DEI DATI ---
-const prodotti = [
-    { id: 1, name: "Smartphone Ultra 5G", category: "smartphone", price: 699.00, stock: 10, image: "https://pisces.bbystatic.com/prescaled/500/500/image2/BestBuy_US/images/products/c379ba4c-68af-4410-95ba-c739979192f7.jpg", descrizione: "Uno smartphone potentissimo con fotocamera da 108MP e batteria a lunga durata." },
-    { id: 2, name: "Laptop Pro 15\"", category: "laptop", price: 1299.00, stock: 5, image: "https://pisces.bbystatic.com/prescaled/500/500/image2/BestBuy_US/images/products/668bcd83-acec-4885-8450-322470fb3598.jpg", descrizione: "Processore i9, 16GB RAM, SSD 1TB. Perfetto per il lavoro pesante." },
-    { id: 3, name: "Cuffie Wireless Noise Cancelling", category: "audio", price: 199.00, stock: 15, image: "https://i2.adis.ws/i/Argos/8496609_R_Z001A", descrizione: "Isolati dal mondo con la cancellazione attiva del rumore. Autonomia 30h." },
-    { id: 4, name: "Smartwatch Sport Fitness", category: "wearable", price: 89.00, stock: 20, image: "https://target.scene7.com/is/image/Target/GUEST_3c3f1429-e571-4558-93cb-8154218453fd?wid=1000&hei=1000", descrizione: "Monitora il tuo battito cardiaco, i passi e il sonno. Resistente all'acqua." },
-    { id: 5, name: "Laptop Gaming RGB", category: "laptop", price: 1599.00, stock: 3, image: "https://i5.walmartimages.com/asr/b194e290-22bb-45c0-936d-4f6e784e0d6d_1.9fb9b8c4ebd9e389c893b63398ed5a2a.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff", descrizione: "Scheda video RTX 4070, schermo 144Hz. Il sogno dei gamer." },
-    { id: 6, name: "Smartphone Base Lite", category: "smartphone", price: 249.00, stock: 12, image: "https://ss7.vzw.com/is/image/VerizonWireless/samsung-galaxy-s26-ult-black-sms948uzkv-sms948uzkev-sms948uzkfv", descrizione: "Economico, affidabile e con tutto l'essenziale che ti serve." },
-    { id: 7, name: "Speaker Bluetooth Waterproof", category: "audio", price: 59.00, stock: 30, image: "https://i5.walmartimages.com/asr/f8161823-4fae-4f0e-a0d4-25e646e524c0.c69629f8d5f20646ac5f6719f59293eb.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff", descrizione: "Porta la musica sempre con te, anche in piscina o sotto la doccia." },
-    { id: 8, name: "Auricolari True Wireless", category: "audio", price: 129.00, stock: 25, image: "https://i5.walmartimages.com/asr/ae0e2d16-4ede-4ca1-a53a-c7d15d729a39.869bf1901f807850ea58e35e9469edba.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff", descrizione: "Leggeri e comodi. Case di ricarica rapida incluso." }
-];
+// --- 1. DEFINIZIONE DEI DATI E STATO GLOBALE ---
+let prodotti = [];
+let cart = JSON.parse(localStorage.getItem("cartShop")); // Non mettiamo || [] qui, controlliamo dopo
+let favorites = JSON.parse(localStorage.getItem("favoritesShop")) || [];
+let showOnlyFavorites = false;
 
-// --- STATI GLOBALI (Punto 5d: Persistenza locale) ---
-// Utilizzo jQuery $(document).ready(...) al posto di document.addEventListener
 $(document).ready(function() {
 
-    // Recupero da localStorage
-    let cart = JSON.parse(localStorage.getItem("cartShop")) || [];
-    let favorites = JSON.parse(localStorage.getItem("favoritesShop")) || [];
-    let showOnlyFavorites = false;
+    // --- 1A. INIZIALIZZAZIONE HOME PAGE ---
+    if ($("#productsContainer").length) {
 
-    // --- Inizializzazione Home Page ---
-    if ($("#productsContainer").length) { // Controllo se esiste nella pagina (jQuery)
-        applyFiltersAndRender();
+        // Se il carrello in locale non esiste, carichiamo quello di default dall'XML
+        if (!cart) {
+            loadInitialCartFromXML("xml/carrello.xml");
+        }
 
-        // Event Listeners con .on() (Punto 4)
+        // Carica il primo set di prodotti XML
+        loadProductsFromXML("xml/prodotti1.xml", function() {
+            $("#loadMoreBtn").show();
+        });
+
+        // Event Listeners UI Home
         $("#searchInput").on("input", applyFiltersAndRender);
         $("#searchButton").on("click", applyFiltersAndRender);
         $("#categoryFilter").on("change", applyFiltersAndRender);
@@ -31,48 +27,141 @@ $(document).ready(function() {
 
         $("#resetFiltersBtn").on("click", function(e) {
             e.preventDefault();
-            $("#searchInput").val(""); // .val() jQuery
+            $("#searchInput").val("");
             $("#categoryFilter").val("all");
             $("#sortFilter").val("default");
             showOnlyFavorites = false;
             applyFiltersAndRender();
         });
 
-        // Punto 5b: Bottone mostra solo preferiti
         $("#showFavoritesBtn").on("click", function(e) {
             e.preventDefault();
-            showOnlyFavorites = !showOnlyFavorites; // Toggle
-
+            showOnlyFavorites = !showOnlyFavorites;
             if (showOnlyFavorites) {
-                $(this).html('<i class="fas fa-heart" style="color: red;"></i> Mostra Tutti'); // .html() jQuery
+                $(this).html('<i class="fas fa-heart" style="color: red;"></i> Mostra Tutti');
             } else {
                 $(this).html('<i class="fas fa-heart" style="color: red;"></i> Solo Preferiti');
             }
             applyFiltersAndRender();
         });
 
-        // Chiusura carrello basso
-        $("#closeCartBtn").on("click", function() {
-            $("#cartBottomBar").hide(); // .hide() jQuery
+        $("#loadMoreBtn").on("click", function() {
+            loadProductsFromXML("xml/prodotti2.xml", () => {
+                $(this).hide();
+            });
         });
     }
 
-    // --- Inizializzazione Pagina Carrello ---
+    // --- 1B. INIZIALIZZAZIONE PAGINA CARRELLO ---
     if ($("#mainCartItemsContainer").length) {
-        renderMainCartPage();
+        // La pagina carrello ha bisogno del catalogo completo per mostrare foto e prezzi corretti.
+        // Carichiamo entrambi i file prodotti in parallelo con le Promise.
+        Promise.all([
+            fetchXMLData("xml/prodotti1.xml"),
+            fetchXMLData("xml/prodotti2.xml")
+        ]).then(() => {
+            // Dopo aver caricato tutti i prodotti, verifichiamo lo stato del carrello
+            if (!cart) {
+                loadInitialCartFromXML("xml/carrello.xml", renderMainCartPage);
+            } else {
+                renderMainCartPage();
+            }
+        }).catch(err => {
+            console.error("Errore caricamento prodotti nel carrello", err);
+            $("#mainCartItemsContainer").html("<p style='color:red;'>Errore nel caricamento dei dati.</p>");
+        });
     }
 
 
     // ==========================================
-    // FUNZIONI PRINCIPALI (Riscritte in jQuery)
+    // CARICAMENTO XML CON FETCH
+    // ==========================================
+
+    // Funzione helper basica per fetchare prodotti usata nel carrello
+    function fetchXMLData(url) {
+        return fetch(url)
+            .then(response => {
+                if(!response.ok) throw new Error("Errore network");
+                return response.text();
+            })
+            .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+            .then(xml => parseProductsXML(xml));
+    }
+
+    // Funzione usata dalla Home per caricare e renderizzare
+    function loadProductsFromXML(url, callback) {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error("Errore di rete durante il fetch.");
+                return response.text();
+            })
+            .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+            .then(xml => {
+                parseProductsXML(xml);
+                applyFiltersAndRender();
+                if (callback) callback();
+            })
+            .catch(error => {
+                console.error("Errore nel caricamento del file XML:", error);
+            });
+    }
+
+    // Estrae i nodi prodotto e li inserisce nell'array globale
+    function parseProductsXML(xml) {
+        const nodiProdotto = xml.querySelectorAll("prodotto");
+        nodiProdotto.forEach(node => {
+            const idXML = parseInt(node.querySelector("id").textContent);
+            // Evitiamo duplicati se ricarichiamo file già letti
+            if(!prodotti.find(p => p.id === idXML)) {
+                prodotti.push({
+                    id: idXML,
+                    name: node.querySelector("name").textContent,
+                    category: node.querySelector("category").textContent,
+                    price: parseFloat(node.querySelector("price").textContent),
+                    stock: parseInt(node.querySelector("stock").textContent),
+                    image: node.querySelector("image").textContent,
+                    descrizione: node.querySelector("descrizione").textContent
+                });
+            }
+        });
+    }
+
+    // Carica il file carrello.xml di esempio iniziale
+    function loadInitialCartFromXML(url, callback) {
+        fetch(url)
+            .then(res => res.text())
+            .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+            .then(xml => {
+                cart = [];
+                const items = xml.querySelectorAll("item");
+                items.forEach(item => {
+                    cart.push({
+                        productId: parseInt(item.querySelector("productId").textContent),
+                        quantity: parseInt(item.querySelector("quantity").textContent)
+                    });
+                });
+                saveCart();
+                if(callback) callback();
+            })
+            .catch(err => {
+                console.error("Errore lettura carrello.xml", err);
+                cart = []; // Fallback a vuoto
+                saveCart();
+                if(callback) callback();
+            });
+    }
+
+
+    // ==========================================
+    // LOGICA VISUALIZZAZIONE HOME
     // ==========================================
 
     function applyFiltersAndRender() {
-        const searchText = $("#searchInput").val().toLowerCase().trim(); // .val() jQuery
+        if(!$("#productsContainer").length) return; // Salta se non siamo in home
+        const searchText = $("#searchInput").val().toLowerCase().trim();
         const selectedCategory = $("#categoryFilter").val();
         const sortMode = $("#sortFilter").val();
 
-        // 1. Filtraggio
         let filteredArray = prodotti.filter(prodotto => {
             const matchText = prodotto.name.toLowerCase().includes(searchText);
             const matchCategory = (selectedCategory === "all") || (prodotto.category === selectedCategory);
@@ -80,7 +169,6 @@ $(document).ready(function() {
             return matchText && matchCategory && matchFav;
         });
 
-        // 2. Ordinamento (Punto 5a)
         if (sortMode === "priceAsc") {
             filteredArray.sort((a, b) => a.price - b.price);
         } else if (sortMode === "priceDesc") {
@@ -89,121 +177,64 @@ $(document).ready(function() {
             filteredArray.sort((a, b) => a.name.localeCompare(b.name));
         }
 
-        // 3. Render
         renderProducts(filteredArray);
     }
 
     function renderProducts(productArray) {
-        const $container =$("#productsContainer"); // Selettore jQuery
-        const $noResultsMsg =$("#noResultsMessage");
-
-        $container.html(""); // .html("") svuota il div
+        const $container = $("#productsContainer");
+        const $noResultsMsg = $("#noResultsMessage");
+        $container.html("");
 
         if (productArray.length === 0) {
-            $noResultsMsg.show(); // .show() jQuery$container.hide();
+            $noResultsMsg.show();
+            $container.hide();
         } else {
-            $noResultsMsg.hide(); // .hide() jQuery$container.show();
+            $noResultsMsg.hide();
+            $container.show();
 
             productArray.forEach(prodotto => {
                 const prezzoStr = prodotto.price.toFixed(2).replace('.', ',') + " €";
-
-                // Controllo se è preferito
                 const isFav = favorites.includes(prodotto.id);
                 const heartClass = isFav ? "fas fa-heart" : "far fa-heart";
                 const heartColor = isFav ? "red" : "#000";
 
                 const cardHtml = `
                     <div class="product-card" style="position: relative;">
-                      <!-- Tasto Preferito (Punto 5b) -->
                       <button class="fav-btn" data-id="${prodotto.id}" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5em; color: ${heartColor}; cursor: pointer; z-index: 10;">
                         <i class="${heartClass}"></i>
                       </button>
-
                       <div class="img-container product-trigger" data-id="${prodotto.id}" style="cursor: pointer;">
                         <img src="${prodotto.image}" alt="${prodotto.name}">
                       </div>
                       <h4 class="product-trigger" data-id="${prodotto.id}" style="cursor: pointer; text-decoration: underline;">${prodotto.name}</h4>
                       <div class="stars">★★★★☆</div>
                       <div class="price">${prezzoStr}</div>
-                      
                       <div class="btn-container">
                         <button class="btn-action add-to-cart-btn" data-id="${prodotto.id}">Aggiungi al carrello</button>
                       </div>
                     </div>
                 `;
-                $container.append(cardHtml); // Iniezione con append di jQuery
+                $container.append(cardHtml);
             });
         }
     }
 
-    // --- EVENT DELEGATION: Gestione click su elementi generati dinamicamente ---
-
-    // Aggiungi al carrello
-    $(document).on("click", ".add-to-cart-btn", function() {
-        const productId = parseInt($(this).data("id"));
-        addToCart(productId);
-    });
-
-    // Preferiti
-    $(document).on("click", ".fav-btn", function() {
-        const productId = parseInt($(this).data("id"));
-        if (favorites.includes(productId)) {
-            favorites = favorites.filter(id => id !== productId); // Rimuovi
-        } else {
-            favorites.push(productId); // Aggiungi
-        }
-        localStorage.setItem("favoritesShop", JSON.stringify(favorites));
-        applyFiltersAndRender(); // Ridisegna per aggiornare i cuori
-    });
-
-    // Apertura Modale cliccando nome o immagine (Punto 5c)
-    $(document).on("click", ".product-trigger", function() {
-        const productId = parseInt($(this).data("id"));
-        const prodotto = prodotti.find(p => p.id === productId);
-
-        if (prodotto) {
-            $("#infoTitolo").text(prodotto.name); // .text() jQuery
-            $("#infoDescrizione").text(prodotto.descrizione);
-            $("#infoImmagine").attr("src", prodotto.image); // .attr() jQuery
-            $("#infoPrezzo").text(prodotto.price.toFixed(2).replace('.', ',') + " €");
-            $("#infoDisponibilita").text(`Disponibilità: ${prodotto.stock} pezzi in stock`);
-
-            // Imposta l'ID sul bottone del carrello dentro la modale
-            $("#modalAddToCartBtn").data("id", prodotto.id);
-
-            $("#modalInfo").css("display", "flex"); // Equivalente di show per flex
-        }
-    });
-
-    // Aggiunta carrello DALLA modale
-    $("#modalAddToCartBtn").on("click", function() {
-        const productId = parseInt($(this).data("id"));
-        addToCart(productId);
-        $("#modalInfo").hide(); // Chiudi modale dopo aggiunta
-    });
-
-    // Chiusura Modale (Punto 5c)
-    $("#closeModalInfoBtn").on("click", function() {
-        $("#modalInfo").hide();
-    });
-
-    // Chiusura cliccando fuori dal contenuto
-    $("#modalInfo").on("click", function(e) {
-        if ($(e.target).is("#modalInfo")) {
-            $(this).hide();
-        }
-    });
-
 
     // ==========================================
-    // LOGICA DEL CARRELLO
+    // LOGICA FUNZIONALE CARRELLO & PREFERITI
     // ==========================================
 
     function saveCart() {
         localStorage.setItem("cartShop", JSON.stringify(cart));
     }
 
-    function addToCart(productId) {
+    // Aggiungi prodotto al carrello (Evento delegato per jQuery)
+    $(document).on("click", ".add-to-cart-btn", function() {
+        const productId = parseInt($(this).data("id"));
+
+        // Se per caso cart non è ancora stato inizializzato
+        if(!cart) cart = [];
+
         const existingItem = cart.find(item => item.productId === productId);
         if (existingItem) {
             existingItem.quantity++;
@@ -212,80 +243,42 @@ $(document).ready(function() {
         }
 
         saveCart();
+        alert("Prodotto aggiunto al carrello!");
+    });
 
-        if ($("#cartBottomBar").length) {
-            $("#cartBottomBar").show();
-            renderBottomCart();
-        }
-    }
-
-    // Esposizione globale per i bottoni onclick inline rimanenti
-    window.removeFromCart = function(productId, isMainPage = false) {
-        cart = cart.filter(item => item.productId !== productId);
-        saveCart();
-        if(isMainPage) renderMainCartPage();
-        else renderBottomCart();
-    };
-
-    window.changeQuantity = function(productId, amount, isMainPage = false) {
+    // Cambia Quantità (esposto globalmente per inline onclick del carrello.html)
+    window.changeQuantity = function(productId, amount) {
         const item = cart.find(item => item.productId === productId);
         if (item) {
             item.quantity += amount;
             if (item.quantity <= 0) {
-                removeFromCart(productId, isMainPage);
+                removeFromCart(productId);
             } else {
                 saveCart();
-                if(isMainPage) renderMainCartPage();
-                else renderBottomCart();
+                renderMainCartPage(); // Ridisegna
             }
         }
     };
 
-    function renderBottomCart() {
-        const $container =$("#cartItemsContainer");
-        const $totalEl =$("#cartTotal");
-        $container.html("");
-        let globalTotal = 0;
+    // Rimuovi Prodotto
+    window.removeFromCart = function(productId) {
+        cart = cart.filter(item => item.productId !== productId);
+        saveCart();
+        renderMainCartPage(); // Ridisegna
+    };
 
-        if (cart.length === 0) {
-            $container.html("<p>Il carrello è vuoto.</p>");
-            $totalEl.text("0,00 €");
-            return;
-        }
-
-        cart.forEach(item => {
-            const prodotto = prodotti.find(p => p.id === item.productId);
-            if (!prodotto) return;
-
-            const subtotale = prodotto.price * item.quantity;
-            globalTotal += subtotale;
-
-            const itemHTML = `
-                <div style="min-width: 250px; border: 2px solid #000; border-radius: 8px; padding: 10px; display: flex; flex-direction: column; background: #f9f9f9;">
-                    <h5 style="margin: 0 0 5px 0;">${prodotto.name}</h5>
-                    <p style="margin: 0 0 10px 0; font-size: 0.9em;">Sub: <strong>${subtotale.toFixed(2).replace('.', ',')} €</strong></p>
-                    <div style="display: flex; gap: 5px; align-items: center; margin-top: auto;">
-                        <button onclick="changeQuantity(${item.productId}, -1, false)" style="padding: 2px 8px; font-weight: bold; cursor: pointer; border: 1px solid #000; background: #fff;">-</button>
-                        <span>${item.quantity}</span>
-                        <button onclick="changeQuantity(${item.productId}, 1, false)" style="padding: 2px 8px; font-weight: bold; cursor: pointer; border: 1px solid #000; background: #fff;">+</button>
-                        <button onclick="removeFromCart(${item.productId}, false)" style="margin-left: auto; padding: 2px 8px; cursor: pointer; border: none; background: transparent; text-decoration: underline; color: red;">Rimuovi</button>
-                    </div>
-                </div>
-            `;
-            $container.append(itemHTML);
-        });
-        $totalEl.text(globalTotal.toFixed(2).replace('.', ',') + " €"); // .text() jQuery
-    }
-
+    // Rendering visivo in carrello.html
     function renderMainCartPage() {
-        const $container =$("#mainCartItemsContainer");
-        const $subtotaleEl =$("#mainSubtotale");
-        const $totaleEl =$("#mainTotaleFinale");
+        const $container = $("#mainCartItemsContainer");
+        const $subtotaleEl = $("#mainSubtotale");
+        const $totaleEl = $("#mainTotaleFinale");
+
+        if(!$container.length) return;
 
         $container.html("");
         let globalTotal = 0;
 
-        if (cart.length === 0) {
+        if (!cart || cart.length === 0) {
             $container.html("<p style='font-size: 1.2em; margin-top: 20px;'>Il tuo carrello è attualmente vuoto.</p>");
             $subtotaleEl.text("0,00 €");
             $totaleEl.text("0,00 €");
@@ -294,7 +287,7 @@ $(document).ready(function() {
 
         cart.forEach(item => {
             const prodotto = prodotti.find(p => p.id === item.productId);
-            if (!prodotto) return;
+            if (!prodotto) return; // Se il prodotto non è trovato tra gli xml caricati, salta
 
             const subtotale = prodotto.price * item.quantity;
             globalTotal += subtotale;
@@ -306,17 +299,15 @@ $(document).ready(function() {
                 </div>
                 <div class="cart-item-details">
                     <h4>${prodotto.name}</h4>
-                    <p>${prodotto.descrizione}</p>
+                    <p>Prezzo unitario: ${prodotto.price.toFixed(2).replace('.', ',')} €</p>
+                    <p style="color: green; font-weight: bold;">Subtotale: ${subtotale.toFixed(2).replace('.', ',')} €</p>
                     <div class="cart-quantity-controls">
                         <label>Quantità:</label>
-                        <button onclick="changeQuantity(${item.productId}, -1, true)" style="width: 30px; height: 30px; font-weight: bold; border: 2px solid #000; cursor: pointer; background: #fff;">-</button>
+                        <button onclick="changeQuantity(${item.productId}, -1)" style="width: 30px; height: 30px; font-weight: bold; border: 2px solid #000; cursor: pointer; background: #fff;">-</button>
                         <input type="text" value="${item.quantity}" readonly style="width: 40px; text-align: center; font-weight: bold;">
-                        <button onclick="changeQuantity(${item.productId}, 1, true)" style="width: 30px; height: 30px; font-weight: bold; border: 2px solid #000; cursor: pointer; background: #fff;">+</button>
-                        <button onclick="removeFromCart(${item.productId}, true)" class="btn-action" style="width: auto; padding: 5px 15px; margin-left: 15px;">Rimuovi</button>
+                        <button onclick="changeQuantity(${item.productId}, 1)" style="width: 30px; height: 30px; font-weight: bold; border: 2px solid #000; cursor: pointer; background: #fff;">+</button>
+                        <button onclick="removeFromCart(${item.productId})" class="btn-action" style="width: auto; padding: 5px 15px; margin-left: 15px;">Rimuovi</button>
                     </div>
-                </div>
-                <div class="cart-item-price">
-                    <div class="price">${prodotto.price.toFixed(2).replace('.', ',')} €</div>
                 </div>
             </div>
             `;
@@ -324,6 +315,68 @@ $(document).ready(function() {
         });
 
         const totaleStr = globalTotal.toFixed(2).replace('.', ',') + " €";
-        $subtotaleEl.text(totaleStr);$totaleEl.text(totaleStr);
+        $subtotaleEl.text(totaleStr);
+        $totaleEl.text(totaleStr);
     }
+
+    // Gestione Preferiti
+    $(document).on("click", ".fav-btn", function() {
+        const productId = parseInt($(this).data("id"));
+
+        if (favorites.includes(productId)) {
+            favorites = favorites.filter(id => id !== productId);
+            alert("Prodotto rimosso dai preferiti!");
+        } else {
+            favorites.push(productId);
+            alert("Prodotto aggiunto ai preferiti!");
+        }
+        localStorage.setItem("favoritesShop", JSON.stringify(favorites));
+        applyFiltersAndRender();
+    });
+
+
+    // ==========================================
+    // LOGICA MODALE (Dettagli)
+    // ==========================================
+
+    $(document).on("click", ".product-trigger", function() {
+        const productId = parseInt($(this).data("id"));
+        const prodotto = prodotti.find(p => p.id === productId);
+
+        if (prodotto) {
+            $("#infoTitolo").text(prodotto.name);
+            $("#infoDescrizione").text(prodotto.descrizione);
+            $("#infoImmagine").attr("src", prodotto.image);
+            $("#infoPrezzo").text(prodotto.price.toFixed(2).replace('.', ',') + " €");
+            $("#infoDisponibilita").text(`Disponibilità: ${prodotto.stock} pezzi in stock`);
+
+            $("#modalAddToCartBtn").data("id", prodotto.id);
+            $("#modalInfo").css("display", "flex");
+        }
+    });
+
+    $("#closeModalInfoBtn").on("click", function() {
+        $("#modalInfo").hide();
+    });
+
+    $("#modalInfo").on("click", function(e) {
+        if ($(e.target).is("#modalInfo")) {
+            $(this).hide();
+        }
+    });
+
+    $("#modalAddToCartBtn").on("click", function() {
+        const productId = parseInt($(this).data("id"));
+
+        if(!cart) cart = [];
+        const existingItem = cart.find(item => item.productId === productId);
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cart.push({ productId: productId, quantity: 1 });
+        }
+        saveCart();
+        alert("Prodotto aggiunto al carrello!");
+        $("#modalInfo").hide();
+    });
 });
