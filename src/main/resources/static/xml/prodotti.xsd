@@ -7,16 +7,17 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="id" type="xs:integer"/>
-                            <xs:element name="name" type="xs:string"/>
-                            <xs:element name="category" type="xs:string"/>
-                            <xs:element name="price" type="xs:decimal"/>
-                            <xs:element name="stock" type="xs:integer"/>
-                            <xs:element name="image" type="xs:string"/>
+                            <xs:element name="nome" type="xs:string"/>
                             <xs:element name="descrizione" type="xs:string"/>
+                            <xs:element name="prezzo" type="xs:decimal"/>
+                            <xs:element name="marca" type="xs:string"/>
+                            <xs:element name="immagine" type="xs:anyURI"/>
+                            <xs:element name="disponibilita" type="xs:string"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
+            <xs:attribute name="categoria" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
 </xs:schema>
