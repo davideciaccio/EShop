@@ -16,21 +16,23 @@
 <header>
     <nav class="navbar">
         <div class="nav-brand">
-            <a href="home.html">
+            <a href="home.html" class="brand-link">
+                <!-- Usa solo il logo, senza slogan nell'immagine -->
                 <img src="images/logo_eshop.jpg" alt="E-Shop Logo">
+                <!-- Slogan come testo HTML -->
+                <span class="brand-slogan">Tutto, in un click.</span>
             </a>
         </div>
 
+        <!-- Barra e filtri -->
         <div class="nav-search-wrapper">
-            <select id="categoryFilter" onchange="window.location.href='home.html'">
-                <option value="all">Filtra per categoria (vai alla Home)</option>
-            </select>
             <div class="nav-search">
-                <input type="text" id="searchInput" placeholder="Cerca prodotti (vai alla Home)...">
-                <button type="button" onclick="window.location.href='home.html'">Cerca</button>
+                <input type="text" id="searchInput" placeholder="Cerca prodotti..." required>
+                <button type="button" id="searchButton">Cerca</button>
             </div>
         </div>
 
+        <!-- Icone Account e Carrello -->
         <div class="nav-user-info">
             <div class="account-dropdown-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -48,13 +50,16 @@
                 </div>
             </div>
 
-            <a href="carrello.html" style="display: flex; align-items: center; gap: 8px; color: black; text-decoration: none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                <span style="font-size: 1.1em; font-weight: bold;">Carrello</span>
+            <a href="carrello.html" class="cart-link">
+        <span class="cart-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span id="cartCounter" class="cart-counter">0</span>
+        </span>
+                <span class="cart-label">Carrello</span>
             </a>
         </div>
     </nav>

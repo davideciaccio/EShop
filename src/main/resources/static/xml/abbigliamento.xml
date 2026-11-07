@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prodotti categoria="abbigliamento"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="prodotti.xsd">
+    <prodotto>
+        <id>1</id>
+        <nome>T-shirt cotone unisex</nome>
+        <descrizione>T-shirt in cotone a girocollo, vestibilità regular.</descrizione>
+        <prezzo>19.90</prezzo>
+        <marca>BasicExample</marca>
+        <immagine>https://m.media-amazon.com/images/I/711JLw7fFEL._SR960%2C720_.jpg</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>2</id>
+        <nome>Felpa con cappuccio</nome>
+        <descrizione>Felpa in cotone con cappuccio e tasca a marsupio.</descrizione>
+        <prezzo>39.90</prezzo>
+        <marca>StreetExample</marca>
+        <immagine>https://i5.walmartimages.com/asr/36a92bdc-ad19-4cdc-835b-4b7f4ea550a7_1.8026830a63fea5a51ee1ca756126f0e6.jpeg?odnHeight=450&amp;odnWidth=450&amp;odnBg=ffffff</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>3</id>
+        <nome>Polo uomo</nome>
+        <descrizione>Polo in piquet di cotone con colletto classico.</descrizione>
+        <prezzo>29.90</prezzo>
+        <marca>ClassicExample</marca>
+        <immagine>https://m.media-amazon.com/images/I/41jcMzx+cXL._UL320_.jpg</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>4</id>
+        <nome>Camicia a manica lunga</nome>
+        <descrizione>Camicia formale in misto cotone, taglio slim.</descrizione>
+        <prezzo>34.90</prezzo>
+        <marca>FormalExample</marca>
+        <immagine>http://ecx.images-amazon.com/images/I/41-eGNej7RL._SL160_.jpg</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>5</id>
+        <nome>Giacca casual</nome>
+        <descrizione>Giacca leggera casual con chiusura frontale.</descrizione>
+        <prezzo>69.90</prezzo>
+        <marca>UrbanExample</marca>
+        <immagine>http://i.ebayimg.com/00/s/MTIwNFgxMDAw/z/CQ0AAOSwHzBZm~My/$_1.JPG?set_id=880000500F</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>6</id>
+        <nome>Abito da donna</nome>
+        <descrizione>Abito elegante da donna, tessuto leggero.</descrizione>
+        <prezzo>89.00</prezzo>
+        <marca>Macy's Example</marca>
+        <immagine>http://slimages.macys.com/is/image/MCY/products/8/optimized/2814898_fpx.tif?wid=300&amp;fmt=jpeg&amp;qlt=100</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>7</id>
+        <nome>Sneakers sportive Nike</nome>
+        <descrizione>Scarpe da running leggere con intersuola ammortizzata.</descrizione>
+        <prezzo>119.99</prezzo>
+        <marca>Nike</marca>
+        <immagine>https://static.nike.com/a/images/b_rgb:FFFFFF%2Cc_limit%2Ch_1000%2Cw_1000%2Cf_png/7da5a43b-fb01-4ea2-ab6a-200113c39e17/image.png?v=1</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>8</id>
+        <nome>Pantaloni jogger</nome>
+        <descrizione>Pantaloni jogger in felpa con elastico in vita.</descrizione>
+        <prezzo>29.95</prezzo>
+        <marca>Zalando Example</marca>
+        <immagine>https://m.media-amazon.com/images/I/7120ub9lUhL._SR960%2C720_.jpg</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+</prodotti>

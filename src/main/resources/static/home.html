@@ -15,21 +15,16 @@
 <header>
   <nav class="navbar">
     <div class="nav-brand">
-      <a href="home.html">
+      <a href="home.html" class="brand-link">
+        <!-- Usa solo il logo, senza slogan nell'immagine -->
         <img src="images/logo_eshop.jpg" alt="E-Shop Logo">
+        <!-- Slogan come testo HTML -->
+        <span class="brand-slogan">Tutto, in un click.</span>
       </a>
     </div>
 
     <!-- Barra e filtri -->
     <div class="nav-search-wrapper">
-      <select id="categoryFilter">
-        <option value="all">Tutte le categorie</option>
-        <option value="smartphone">Smartphone</option>
-        <option value="laptop">Laptop</option>
-        <option value="audio">Audio</option>
-        <option value="wearable">Wearable</option>
-      </select>
-
       <div class="nav-search">
         <input type="text" id="searchInput" placeholder="Cerca prodotti..." required>
         <button type="button" id="searchButton">Cerca</button>
@@ -54,13 +49,16 @@
         </div>
       </div>
 
-      <a href="carrello.html" style="display: flex; align-items: center; gap: 8px; color: black; text-decoration: none;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
-          <circle cx="9" cy="21" r="1"></circle>
-          <circle cx="20" cy="21" r="1"></circle>
-          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-        </svg>
-        <span style="font-size: 1.1em; font-weight: bold;">Carrello</span>
+      <a href="carrello.html" class="cart-link">
+        <span class="cart-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span id="cartCounter" class="cart-counter">0</span>
+        </span>
+        <span class="cart-label">Carrello</span>
       </a>
     </div>
   </nav>
@@ -73,13 +71,8 @@
 
     <!-- SIDEBAR SINISTRA -->
     <aside class="sidebar">
-      <h3>Azioni</h3>
-      <ul>
-        <li><a href="#" id="resetFiltersBtn">Azzera Filtri</a></li>
-        <li><a href="#" id="showFavoritesBtn"><i class="fas fa-heart" style="color: red;"></i> Solo Preferiti</a></li>
-      </ul>
 
-      <h3 style="margin-top: 20px;">Ordina Per</h3>
+      <h3>Ordina Per</h3>
       <select id="sortFilter" style="width: 100%; padding: 8px; margin-top: 10px; border: 2px solid #000; border-radius: 4px;">
         <option value="default">Rilevanza</option>
         <option value="priceAsc">Prezzo: Crescente</option>
@@ -87,13 +80,11 @@
         <option value="nameAsc">Nome: A-Z</option>
       </select>
 
-      <h3 style="margin-top: 20px;">Reparti</h3>
+      <h3 style="margin-top: 20px;">Categorie</h3>
       <ul>
-        <li><a href="#">Elettronica</a></li>
-        <li><a href="#">Informatica</a></li>
-        <li><a href="#">Libri</a></li>
-        <li><a href="#">Casa e Cucina</a></li>
-        <li><a href="#">Videogiochi</a></li>
+        <li><a href="#" class="category-link" data-category="elettronica">Elettronica</a></li>
+        <li><a href="#" class="category-link" data-category="libri">Libri</a></li>
+        <li><a href="#" class="category-link" data-category="abbigliamento">Abbigliamento</a></li>
       </ul>
     </aside>
 
@@ -123,12 +114,22 @@
 <div id="modalInfo" class="modal">
   <div class="modal-content">
     <h3 id="infoTitolo" style="margin-bottom: 15px;">Titolo Prodotto</h3>
-    <div class="img-container" style="height: auto; max-height: 250px;">
+
+    <div class="img-container" style="height: auto; max-height: 250px; margin-bottom: 10px;">
       <img id="infoImmagine" src="" alt="Dettaglio Prodotto">
     </div>
+
+    <!-- Brand sotto l'immagine -->
+    <p id="infoBrand" style="font-weight: bold; font-size: 1.1em; margin-bottom: 15px;">Brand</p>
+
     <p id="infoDescrizione" style="margin: 15px 0; line-height: 1.5;">Descrizione...</p>
     <p id="infoPrezzo" style="font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">0,00 €</p>
-    <p id="infoDisponibilita" style="color: green; margin-bottom: 20px;">Disponibilità: N/A</p>
+
+    <!-- Disponibilità con label nera e stato verde -->
+    <p style="margin-bottom: 20px; font-size: 1em;">
+      <span style="color: #000000;">Disponibilità: </span>
+      <span id="infoDisponibilita" style="color: green; font-weight: bold;">N/A</span>
+    </p>
 
     <div style="display: flex; gap: 15px; justify-content: center;">
       <button class="btn-action add-to-cart-btn" id="modalAddToCartBtn">Aggiungi al carrello</button>

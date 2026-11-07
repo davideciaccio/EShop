@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Definizione dell'elemento radice "carrello" -->
+    <xs:element name="carrello">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- L'elemento "elemento" può apparire da 0 a infinite volte -->
+                <xs:element name="elemento" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <!-- Definizione dei campi di ogni prodotto -->
+                            <xs:element name="idProdotto" type="xs:int"/>
+                            <xs:element name="nome" type="xs:string"/>
+                            <xs:element name="prezzoUnitario" type="xs:decimal"/>
+                            <xs:element name="quantita" type="xs:int"/>
+                            <xs:element name="immagine" type="xs:anyURI"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

@@ -3,28 +3,52 @@ let prodotti = [];
 let cart = JSON.parse(localStorage.getItem("cartShop"));
 let favorites = JSON.parse(localStorage.getItem("favoritesShop")) || [];
 let showOnlyFavorites = false;
+let currentCategory = "elettronica";
 
 $(document).ready(function() {
-    // Se il carrello in locale non esiste, carichiamo quello di default dall'XML
-    if (!cart) {
-        loadInitialCartFromXML("xml/carrello.xml");
+
+    // ==========================================
+    // TASK 1 — Inizializza il carrello condiviso e
+    // aggiorna il contatore in navbar.
+    // ==========================================
+    if (isCartFormatValid(cart)) {
+        updateHomeCartCounter();
+    } else {
+        // localStorage vuoto o in formato legacy:
+        // ricarica il carrello di default dall'XML usando
+        // lo stesso formato di carrello.js.
+        loadInitialCartFromXML("xml/carrello.xml", function () {
+            updateHomeCartCounter();
+        });
     }
 
-    // Carica il primo set di prodotti XML
-    loadProductsFromXML("xml/prodotti1.xml", function() {
-        $("#loadMoreBtn").show();
-    });
+    // Carica di default i prodotti della categoria Elettronica
+    loadProductsFromXML("xml/elettronica.xml", function() {});
 
     // Event Listeners UI Home
     $("#searchInput").on("input", applyFiltersAndRender);
     $("#searchButton").on("click", applyFiltersAndRender);
-    $("#categoryFilter").on("change", applyFiltersAndRender);
+
+    $(document).on("click", ".category-link", function(e) {
+        e.preventDefault();
+        const cat = $(this).data("category");
+        const fileMap = {
+            'elettronica': 'xml/elettronica.xml',
+            'libri': 'xml/libri.xml',
+            'abbigliamento': 'xml/abbigliamento.xml'
+        };
+        if (fileMap[cat]) {
+            currentCategory = cat;
+            prodotti = [];
+            loadProductsFromXML(fileMap[cat]);
+        }
+    });
+
     $("#sortFilter").on("change", applyFiltersAndRender);
 
     $("#resetFiltersBtn").on("click", function(e) {
         e.preventDefault();
         $("#searchInput").val("");
-        $("#categoryFilter").val("all");
         $("#sortFilter").val("default");
         showOnlyFavorites = false;
         applyFiltersAndRender();
@@ -42,33 +66,14 @@ $(document).ready(function() {
     });
 
     $("#loadMoreBtn").on("click", function() {
-        loadProductsFromXML("xml/prodotti2.xml", () => {
-            $(this).hide();
-        });
+        loadProductsFromXML("xml/prodotti2.xml", () => { $(this).hide(); });
     });
 
     // ==========================================
-    // LOGICA PREFERITI E CARRELLO (Da Home)
+    // LOGICA PREFERITI (invariata)
     // ==========================================
-    $(document).on("click", ".add-to-cart-btn", function() {
-        const productId = parseInt($(this).data("id"));
-
-        if(!cart) cart = [];
-
-        const existingItem = cart.find(item => item.productId === productId);
-        if (existingItem) {
-            existingItem.quantity++;
-        } else {
-            cart.push({ productId: productId, quantity: 1 });
-        }
-
-        saveCart();
-        alert("Prodotto aggiunto al carrello!");
-    });
-
     $(document).on("click", ".fav-btn", function() {
         const productId = parseInt($(this).data("id"));
-
         if (favorites.includes(productId)) {
             favorites = favorites.filter(id => id !== productId);
             alert("Prodotto rimosso dai preferiti!");
@@ -81,6 +86,27 @@ $(document).ready(function() {
     });
 
     // ==========================================
+    // TASK 2 — AGGIUNTA AL CARRELLO (stub)
+    // Il click NON modifica il carrello locale.
+    // L'alert è incapsulato in sendAddToCartRequest()
+    // per poter essere sostituito da AJAX in futuro.
+    // Uso :not(#modalAddToCartBtn) per evitare il doppio
+    // handler sul pulsante del modale.
+    // ==========================================
+    $(document).on("click", ".add-to-cart-btn:not(#modalAddToCartBtn)", function() {
+        const productId = parseInt($(this).data("id"));
+        const prodotto = prodotti.find(p => p.id === productId);
+        sendAddToCartRequest(prodotto);
+    });
+
+    $("#modalAddToCartBtn").on("click", function() {
+        const productId = parseInt($(this).data("id"));
+        const prodotto = prodotti.find(p => p.id === productId);
+        sendAddToCartRequest(prodotto);
+        $("#modalInfo").hide();
+    });
+
+    // ==========================================
     // LOGICA MODALE (Dettagli)
     // ==========================================
     $(document).on("click", ".product-trigger", function() {
@@ -89,10 +115,11 @@ $(document).ready(function() {
 
         if (prodotto) {
             $("#infoTitolo").text(prodotto.name);
+            $("#infoBrand").text(prodotto.brand || '');
             $("#infoDescrizione").text(prodotto.descrizione);
             $("#infoImmagine").attr("src", prodotto.image);
             $("#infoPrezzo").text(prodotto.price.toFixed(2).replace('.', ',') + " €");
-            $("#infoDisponibilita").text(`Disponibilità: ${prodotto.stock} pezzi in stock`);
+            $("#infoDisponibilita").text(prodotto.stock);
 
             $("#modalAddToCartBtn").data("id", prodotto.id);
             $("#modalInfo").css("display", "flex");
@@ -108,84 +135,139 @@ $(document).ready(function() {
             $(this).hide();
         }
     });
-
-    $("#modalAddToCartBtn").on("click", function() {
-        const productId = parseInt($(this).data("id"));
-
-        if(!cart) cart = [];
-        const existingItem = cart.find(item => item.productId === productId);
-        if (existingItem) {
-            existingItem.quantity++;
-        } else {
-            cart.push({ productId: productId, quantity: 1 });
-        }
-        saveCart();
-        alert("Prodotto aggiunto al carrello!");
-        $("#modalInfo").hide();
-    });
 });
+
+// ==========================================
+// TASK 2 — STUB AGGIUNTA AL CARRELLO
+// Funzione isolata: attualmente mostra solo un alert()
+// con nome e id del prodotto. In futuro basterà
+// sostituire il corpo con una $.ajax(...) senza
+// toccare il resto del codice.
+// ==========================================
+function sendAddToCartRequest(prodotto) {
+    if (!prodotto) {
+        alert("Errore: prodotto non trovato.");
+        return;
+    }
+
+    // TODO: sostituire con una richiesta AJAX al backend quando disponibile.
+    // Esempio:
+    // $.ajax({
+    //     url: '/api/cart/add',
+    //     type: 'POST',
+    //     data: { id: prodotto.id, nome: prodotto.name, quantita: 1 },
+    //     success: function () { alert("Prodotto aggiunto al carrello!"); },
+    //     error:   function () { alert("Errore durante l'aggiunta al carrello."); }
+    // });
+
+    alert('Aggiunto al carrello: "' + prodotto.name + '" (ID: ' + prodotto.id + ')');
+}
+
+// ==========================================
+// TASK 1 — CONTATORE CARRELLO
+// Somma le quantità presenti in localStorage
+// (stessa chiave e stesso formato di carrello.js).
+// ==========================================
+function updateHomeCartCounter() {
+    let total = 0;
+    const stored = localStorage.getItem("cartShop");
+
+    if (stored) {
+        try {
+            const items = JSON.parse(stored);
+            if (Array.isArray(items)) {
+                items.forEach(function (item) {
+                    // Supporto sia al nuovo formato (quantita) sia a quello legacy (quantity)
+                    const q = (item.quantita !== undefined) ? item.quantita : (item.quantity || 0);
+                    total += (isNaN(q) ? 0 : q);
+                });
+            }
+        } catch (e) {
+            console.error("Errore nel parsing del carrello da localStorage:", e);
+        }
+    }
+
+    $("#cartCounter").text(total);
+}
 
 // ==========================================
 // FUNZIONI DI UTILITA' HOME
 // ==========================================
+function isCartFormatValid(c) {
+    if (!Array.isArray(c)) return false;
+    return c.every(function (item) {
+        return item && item.id !== undefined && item.quantita !== undefined;
+    });
+}
+
 function saveCart() {
     localStorage.setItem("cartShop", JSON.stringify(cart));
 }
 
+// Caricamento del carrello iniziale via AJAX jQuery,
+// con lo STESSO formato usato da carrello.js.
 function loadInitialCartFromXML(url, callback) {
-    fetch(url)
-        .then(res => res.text())
-        .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-        .then(xml => {
+    $.ajax({
+        url: url,
+        type: "GET",
+        dataType: "xml",
+        success: function (xml) {
             cart = [];
-            const items = xml.querySelectorAll("item");
-            items.forEach(item => {
+            $(xml).find("elemento").each(function () {
                 cart.push({
-                    productId: parseInt(item.querySelector("productId").textContent),
-                    quantity: parseInt(item.querySelector("quantity").textContent)
+                    id:       parseInt($(this).find("idProdotto").text(), 10),
+                    nome:     $(this).find("nome").text(),
+                    prezzo:   parseFloat($(this).find("prezzoUnitario").text()),
+                    quantita: parseInt($(this).find("quantita").text(), 10),
+                    immagine: $(this).find("immagine").text()
                 });
             });
             saveCart();
-            if(callback) callback();
-        })
-        .catch(err => {
-            console.error("Errore lettura carrello.xml", err);
-            cart = []; // Fallback a vuoto
+            if (callback) callback();
+        },
+        error: function (xhr, status, error) {
+            console.error("Errore lettura carrello.xml:", error);
+            cart = [];
             saveCart();
-            if(callback) callback();
-        });
+            if (callback) callback();
+        }
+    });
 }
 
+// Caricamento prodotti via AJAX jQuery (invariato)
 function loadProductsFromXML(url, callback) {
-    fetch(url)
-        .then(response => {
-            if (!response.ok) throw new Error("Errore di rete durante il fetch.");
-            return response.text();
-        })
-        .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-        .then(xml => {
+    $.ajax({
+        url: url,
+        type: 'GET',
+        dataType: 'xml',
+        success: function(xml) {
             parseProductsXML(xml);
             applyFiltersAndRender();
             if (callback) callback();
-        })
-        .catch(error => {
+        },
+        error: function(xhr, status, error) {
             console.error("Errore nel caricamento del file XML:", error);
-        });
+        }
+    });
 }
 
 function parseProductsXML(xml) {
+    const prodottiRoot = xml.querySelector("prodotti");
+    const categoria = prodottiRoot ? prodottiRoot.getAttribute("categoria") : "";
+
     const nodiProdotto = xml.querySelectorAll("prodotto");
     nodiProdotto.forEach(node => {
         const idXML = parseInt(node.querySelector("id").textContent);
         if(!prodotti.find(p => p.id === idXML)) {
             prodotti.push({
                 id: idXML,
-                name: node.querySelector("name").textContent,
-                category: node.querySelector("category").textContent,
-                price: parseFloat(node.querySelector("price").textContent),
-                stock: parseInt(node.querySelector("stock").textContent),
-                image: node.querySelector("image").textContent,
-                descrizione: node.querySelector("descrizione").textContent
+                name: node.querySelector("nome").textContent,
+                category: categoria,
+                price: parseFloat(node.querySelector("prezzo").textContent),
+                stock: node.querySelector("disponibilita").textContent,
+                image: node.querySelector("immagine").textContent,
+                descrizione: node.querySelector("descrizione").textContent,
+                brand: node.querySelector("marca").textContent
             });
         }
     });
@@ -193,12 +275,11 @@ function parseProductsXML(xml) {
 
 function applyFiltersAndRender() {
     const searchText = $("#searchInput").val().toLowerCase().trim();
-    const selectedCategory = $("#categoryFilter").val();
     const sortMode = $("#sortFilter").val();
 
     let filteredArray = prodotti.filter(prodotto => {
         const matchText = prodotto.name.toLowerCase().includes(searchText);
-        const matchCategory = (selectedCategory === "all") || (prodotto.category === selectedCategory);
+        const matchCategory = (prodotto.category === currentCategory);
         const matchFav = showOnlyFavorites ? favorites.includes(prodotto.id) : true;
         return matchText && matchCategory && matchFav;
     });
@@ -228,21 +309,17 @@ function renderProducts(productArray) {
 
         productArray.forEach(prodotto => {
             const prezzoStr = prodotto.price.toFixed(2).replace('.', ',') + " €";
-            const isFav = favorites.includes(prodotto.id);
-            const heartClass = isFav ? "fas fa-heart" : "far fa-heart";
-            const heartColor = isFav ? "red" : "#000";
 
             const cardHtml = `
-                <div class="product-card" style="position: relative;">
-                  <button class="fav-btn" data-id="${prodotto.id}" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5em; color: ${heartColor}; cursor: pointer; z-index: 10;">
-                    <i class="${heartClass}"></i>
-                  </button>
+                <div class="product-card">
                   <div class="img-container product-trigger" data-id="${prodotto.id}" style="cursor: pointer;">
                     <img src="${prodotto.image}" alt="${prodotto.name}">
                   </div>
                   <h4 class="product-trigger" data-id="${prodotto.id}" style="cursor: pointer; text-decoration: underline;">${prodotto.name}</h4>
-                  <div class="stars">★★★★☆</div>
+                  <p class="product-brand">${prodotto.brand || ''}</p>
+                  <p class="product-description">${prodotto.descrizione || ''}</p>
                   <div class="price">${prezzoStr}</div>
+                  <p class="product-availability">${prodotto.stock || ''}</p>
                   <div class="btn-container">
                     <button class="btn-action add-to-cart-btn" data-id="${prodotto.id}">Aggiungi al carrello</button>
                   </div>

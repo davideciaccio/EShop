@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prodotti categoria="elettronica"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="prodotti.xsd">
+    <prodotto>
+        <id>1</id>
+        <nome>Garmin Forerunner 965</nome>
+        <descrizione>Garmin Forerunner 965 Quartz Smartwatch cambia il tuo look rapidamente. E 'realizzato in titanio lunetta con cassa Whitestone e cinturino in silicone. Orologio intelligente da triathlon con funzionamento touch e pulsante e display amoled da 1,4 pollici.</descrizione>
+        <prezzo>564.99</prezzo>
+        <marca>Garmin</marca>
+        <immagine>https://target.scene7.com/is/image/Target/GUEST_d60e4600-dcfa-45a4-886d-c3b9b772f5ca?wid=1000&amp;hei=1000</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>2</id>
+        <nome>Shokz OpenRun cuffie a conduzione ossea</nome>
+        <descrizione>Auricolari sportivi Bluetooth open-ear con microfono, autonomia 8 ore.</descrizione>
+        <prezzo>139.90</prezzo>
+        <marca>Shokz</marca>
+        <immagine>https://target.scene7.com/is/image/Target/GUEST_1c89998c-cfa2-439a-b99f-567399cb5402?wid=1000&amp;hei=1000</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>3</id>
+        <nome>Oura Gen3 Heritage</nome>
+        <descrizione>Anello connesso, misura 6, nero, monitoraggio del sonno, frequenza cardiaca e attività, max. 7 giorni di autonomia, compatibile con iOS/Android</descrizione>
+        <prezzo>279.00</prezzo>
+        <marca>Oura</marca>
+        <immagine>https://target.scene7.com/is/image/Target/GUEST_b04c3def-e409-4419-a972-9f3a74d972b6?wid=1000&amp;hei=1000</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>4</id>
+        <nome>Microsoft Xbox Series X</nome>
+        <descrizione>Console da gaming, 1 TB, Black</descrizione>
+        <prezzo>1214.51</prezzo>
+        <marca>Microsoft XBOX</marca>
+        <immagine>https://i5.walmartimages.com/asr/9f8c06f5-7953-426d-9b68-ab914839cef4.5f15be430800ce4d7c3bb5694d4ab798.jpeg?odnHeight=2000&amp;odnWidth=2000&amp;odnBg=ffffff</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>5</id>
+        <nome>Apple MacBook Pro</nome>
+        <descrizione>Portatile con chip M5 Pro, CPU 15 core e GPU 16 core: progettato per l’AI, display Liquid Retina XDR da 14,2'', 24GB di memoria unificata, 1 TB SSD, Wi Fi 7; color Nero siderale</descrizione>
+        <prezzo>2599.00</prezzo>
+        <marca>Apple</marca>
+        <immagine>https://i5.walmartimages.com/asr/8d6f2488-93ef-4b1b-8ef6-88ea2d4bafa8.2240a070f0b2554845e0f9f2deb34136.jpeg?odnHeight=450&amp;odnWidth=450&amp;odnBg=ffffff</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>6</id>
+        <nome>Sony WH-1000XM5</nome>
+        <descrizione>Premium Cuffie bluetooth con Cancellazione Rumore</descrizione>
+        <prezzo>199.00</prezzo>
+        <marca>Sony</marca>
+        <immagine>https://target.scene7.com/is/image/Target/GUEST_e47219be-8eb6-4843-bce5-b9e70b45fa01?wid=1000&amp;hei=1000</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>7</id>
+        <nome>Apple iPhone 17 Pro Max</nome>
+        <descrizione>512 GB, display 6,9", ProMotion fino a 120Hz, chip A19 Pro, autonomia mai vista su iPhone, sistema di fotocamere Pro Fusion, fotocamera frontale Center Stage; Arancione cosmico</descrizione>
+        <prezzo>1579.99</prezzo>
+        <marca>Apple</marca>
+        <immagine>https://i5.walmartimages.com/asr/50477ef5-442b-4f7c-ab2b-a36c79804b5a.850ba2cedfc4d2abc144eb13f62ad88a.jpeg?odnHeight=2000&amp;odnWidth=2000&amp;odnBg=ffffff</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+    <prodotto>
+        <id>8</id>
+        <nome>Samsung 65" QE65S83HAEXZT OLED 4K AI Football Mode Smart TV Vision AI 2026 [Classe di efficienza energetica F]</nome>
+        <descrizione>NQ4 AI Gen2 Processor, OLED HDR, Motion Xcelerator 120Hz, Dolby Atmos, FreeSync Premium, Premium Gaming Pack, Contour Design</descrizione>
+        <prezzo>1199.00</prezzo>
+        <marca>Samsung</marca>
+        <immagine>https://i5.walmartimages.com/asr/d00e5d4d-bd42-4d4a-b39d-03d5830a7c23_1.068ddf974cef70815eff4f00dee3cd8d.jpeg?odnHeight=450&amp;odnWidth=450&amp;odnBg=ffffff</immagine>
+        <disponibilita>Disponibile</disponibilita>
+    </prodotto>
+</prodotti>

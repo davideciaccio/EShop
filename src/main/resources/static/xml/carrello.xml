@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<carrello
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="carrello.xsd">
+
+    <elemento>
+        <idProdotto>2</idProdotto>
+        <nome>Cuffie wireless</nome>
+        <prezzoUnitario>89.90</prezzoUnitario>
+        <quantita>1</quantita>
+        <immagine>https://target.scene7.com/is/image/Target/GUEST_1c89998c-cfa2-439a-b99f-567399cb5402?wid=1000&amp;hei=1000</immagine>
+    </elemento>
+
+    <elemento>
+        <idProdotto>3</idProdotto>
+        <nome>Smartwatch fitness</nome>
+        <prezzoUnitario>129.00</prezzoUnitario>
+        <quantita>2</quantita>
+        <immagine>https://target.scene7.com/is/image/Target/GUEST_b04c3def-e409-4419-a972-9f3a74d972b6?wid=1000&amp;hei=1000</immagine>
+    </elemento>
+</carrello>
