@@ -16,22 +16,18 @@
   <nav class="navbar">
     <div class="nav-brand">
       <a href="home.html" class="brand-link">
-        <!-- Usa solo il logo, senza slogan nell'immagine -->
         <img src="images/logo_eshop.jpg" alt="E-Shop Logo">
-        <!-- Slogan come testo HTML -->
         <span class="brand-slogan">Tutto, in un click.</span>
       </a>
     </div>
 
-    <!-- Barra e filtri -->
     <div class="nav-search-wrapper">
       <div class="nav-search">
-        <input type="text" id="searchInput" placeholder="Cerca prodotti..." required>
+        <input type="text" id="searchInput" placeholder="Cerca prodotti...">
         <button type="button" id="searchButton">Cerca</button>
       </div>
     </div>
 
-    <!-- Icone Account e Carrello -->
     <div class="nav-user-info">
       <div class="account-dropdown-container">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -66,12 +62,10 @@
 
 <!-- CONTENUTO PRINCIPALE -->
 <main class="container" style="flex-direction: column;">
-
   <div style="display: flex; gap: 30px; width: 100%;">
 
     <!-- SIDEBAR SINISTRA -->
     <aside class="sidebar">
-
       <h3>Ordina Per</h3>
       <select id="sortFilter" style="width: 100%; padding: 8px; margin-top: 10px; border: 2px solid #000; border-radius: 4px;">
         <option value="default">Rilevanza</option>
@@ -82,20 +76,17 @@
       </select>
 
       <h3 style="margin-top: 20px;">Categorie</h3>
-      <ul>
-        <li><a href="#" class="category-link" data-category="elettronica">Elettronica</a></li>
-        <li><a href="#" class="category-link" data-category="libri">Libri</a></li>
-        <li><a href="#" class="category-link" data-category="abbigliamento">Abbigliamento</a></li>
-      </ul>
+      <select id="categoryFilter" style="width: 100%; padding: 8px; margin-top: 10px; border: 2px solid #000; border-radius: 4px;">
+        <option value="elettronica">Elettronica</option>
+        <option value="libri">Libri</option>
+        <option value="abbigliamento">Abbigliamento</option>
+      </select>
     </aside>
 
     <!-- LISTA PRODOTTI -->
     <div style="flex: 1; display: flex; flex-direction: column;">
       <h3 id="noResultsMessage" style="display: none; text-align: center; margin-top: 50px; color: red;">Nessun prodotto trovato.</h3>
-
-      <section class="products-grid" id="productsContainer">
-        <!-- I prodotti XML verranno iniettati qui da jQuery -->
-      </section>
+      <section class="products-grid" id="productsContainer"></section>
     </div>
   </div>
 </main>
@@ -114,13 +105,10 @@
       <img id="infoImmagine" src="" alt="Dettaglio Prodotto">
     </div>
 
-    <!-- Brand sotto l'immagine -->
     <p id="infoBrand" style="font-weight: bold; font-size: 1.1em; margin-bottom: 15px;">Brand</p>
-
     <p id="infoDescrizione" style="margin: 15px 0; line-height: 1.5;">Descrizione...</p>
     <p id="infoPrezzo" style="font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">0,00 €</p>
 
-    <!-- Disponibilità con label nera e stato verde -->
     <p style="margin-bottom: 20px; font-size: 1em;">
       <span style="color: #000000;">Disponibilità: </span>
       <span id="infoDisponibilita" style="color: green; font-weight: bold;">N/A</span>
@@ -133,6 +121,7 @@
   </div>
 </div>
 
+<script src="js/shared.js"></script>
 <script src="js/home.js"></script>
 </body>
 </html>

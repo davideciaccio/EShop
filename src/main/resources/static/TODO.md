@@ -1,0 +1,1 @@
+Prima della consegna rivedi per ogni file html e js le funzionalità e i requisiti del primo assignment e testale ad uno ad uno.

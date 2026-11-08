@@ -6,7 +6,6 @@
     <title>EShop - Carrello</title>
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Inclusione jQuery per far funzionare carrello.js -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -17,22 +16,18 @@
     <nav class="navbar">
         <div class="nav-brand">
             <a href="home.html" class="brand-link">
-                <!-- Usa solo il logo, senza slogan nell'immagine -->
                 <img src="images/logo_eshop.jpg" alt="E-Shop Logo">
-                <!-- Slogan come testo HTML -->
                 <span class="brand-slogan">Tutto, in un click.</span>
             </a>
         </div>
 
-        <!-- Barra e filtri -->
         <div class="nav-search-wrapper">
             <div class="nav-search">
-                <input type="text" id="searchInput" placeholder="Cerca prodotti..." required>
+                <input type="text" id="searchInput" placeholder="Cerca prodotti...">
                 <button type="button" id="searchButton">Cerca</button>
             </div>
         </div>
 
-        <!-- Icone Account e Carrello -->
         <div class="nav-user-info">
             <div class="account-dropdown-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -51,14 +46,14 @@
             </div>
 
             <a href="carrello.html" class="cart-link">
-        <span class="cart-icon-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          <span id="cartCounter" class="cart-counter">0</span>
-        </span>
+                <span class="cart-icon-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span id="cartCounter" class="cart-counter">0</span>
+                </span>
                 <span class="cart-label">Carrello</span>
             </a>
         </div>
@@ -67,7 +62,6 @@
 
 <!-- CONTENUTO PRINCIPALE CARRELLO -->
 <main class="cart-container">
-
     <section class="cart-items-section">
         <h2>Il tuo carrello</h2>
         <div id="mainCartItemsContainer">
@@ -75,7 +69,6 @@
         </div>
     </section>
 
-    <!-- SIDEBAR DESTRA: RIEPILOGO TOTALE -->
     <aside class="cart-summary-sidebar">
         <h3>Riepilogo Ordine</h3>
         <div class="summary-row">
@@ -94,7 +87,6 @@
             <button class="btn-action" style="font-size: 1.1em; padding: 15px;">Procedi al Check-out</button>
         </a>
     </aside>
-
 </main>
 
 <!-- FOOTER -->
@@ -102,6 +94,7 @@
     <p>© 2026 E-Shop. Tutti i diritti riservati.</p>
 </footer>
 
+<script src="js/shared.js"></script>
 <script src="js/carrello.js"></script>
 </body>
 </html>
