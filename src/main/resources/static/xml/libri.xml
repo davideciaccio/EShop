@@ -31,47 +31,47 @@
     </prodotto>
     <prodotto>
         <id>4</id>
-        <nome>Volume tecnico-scientifico (ISBN 979-8-8688-3221-5)</nome>
-        <descrizione>Testo tecnico edito da Springer Nature, copertina ISBN 9798868832215.</descrizione>
-        <prezzo>54.99</prezzo>
+        <nome>Agentic Architectures on Azure</nome>
+        <descrizione>Building Production-Grade AI Agent Systems with Microsoft Cloud Services</descrizione>
+        <prezzo>39.99</prezzo>
         <marca>Apress</marca>
         <immagine>https://covers.springernature.com/books/jpg_height_648_pixels/9798868832215.jpg</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
     <prodotto>
         <id>5</id>
-        <nome>Python for Engineers and Scientists</nome>
-        <descrizione>A Complete Hands-On Journey from Core Python to Numerical and Scientific Applications</descrizione>
-        <prezzo>60.00</prezzo>
-        <marca>Apress</marca>
+        <nome>Complete Guide to Modern JavaScript</nome>
+        <descrizione>Learn everything from the basics of JavaScript to the new ES2022 features. Practice with more than 50 quizzes and dive into the basics of TypeScript.</descrizione>
+        <prezzo>15.00</prezzo>
+        <marca>InspiredWebDev</marca>
         <immagine>https://i5.walmartimages.com/asr/2e897389-e006-4ae9-8f8a-4f45c5d0bfc2_1.a08f78ee7ce12fbc6dcaba551749738e.jpeg?odnHeight=450&amp;odnWidth=450&amp;odnBg=ffffff</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
     <prodotto>
         <id>6</id>
-        <nome>Volume tecnico-scientifico (ISBN 978-3-658-53634-3)</nome>
-        <descrizione>Testo tecnico edito da Springer Nature, copertina ISBN 9783658536343.</descrizione>
+        <nome>Ethical Challenges and Assessment of selected Medical Artificial Intelligence Systems</nome>
+        <descrizione> The ethical implications, normative frameworks, and qualitative assessment of medical artificial intelligence applications</descrizione>
         <prezzo>59.99</prezzo>
-        <marca>Springer Nature</marca>
+        <marca>Springer</marca>
         <immagine>https://covers.springernature.com/books/jpg_height_648_pixels/9783658536343.jpg</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
     <prodotto>
         <id>7</id>
-        <nome>Volume tecnico-scientifico (ISBN 978-3-658-52962-8)</nome>
-        <descrizione>Testo tecnico edito da Springer Nature, copertina ISBN 9783658529628.</descrizione>
-        <prezzo>64.99</prezzo>
-        <marca>Springer Nature</marca>
-        <immagine>https://covers.springernature.com/books/jpg_height_648_pixels/9783658529628.jpg</immagine>
+        <nome>Deep Learning with Python</nome>
+        <descrizione>Deep Learning with Python introduces the field of deep learning using the Python language and the powerful Keras library</descrizione>
+        <prezzo>30.46</prezzo>
+        <marca>Manning</marca>
+        <immagine>https://m.media-amazon.com/images/I/71WIpYDDqqL._SY385_.jpg</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
     <prodotto>
         <id>8</id>
-        <nome>Volume tecnico-scientifico (ISBN 979-8-8688-3191-1)</nome>
-        <descrizione>Testo tecnico edito da Springer Nature, copertina ISBN 9798868831911.</descrizione>
-        <prezzo>44.99</prezzo>
-        <marca>Springer Nature</marca>
-        <immagine>https://covers.springernature.com/books/jpg_height_648_pixels/9798868831911.jpg</immagine>
+        <nome>Spark : The Definitive Guide</nome>
+        <descrizione>Big Data Processing Made Simple</descrizione>
+        <prezzo>50.00</prezzo>
+        <marca>O'Reilly</marca>
+        <immagine>https://i5.walmartimages.com/asr/83eae49c-004c-4745-adb0-6affc08f8da4.ef08869b7d52a034d8a5bd901dc6038e.jpeg?odnHeight=450&amp;odnWidth=450&amp;odnBg=ffffff</immagine>
         <disponibilita>Disponibile</disponibilita>
     </prodotto>
 </prodotti>

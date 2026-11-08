@@ -5,16 +5,16 @@
 
     <elemento>
         <idProdotto>2</idProdotto>
-        <nome>Cuffie wireless</nome>
-        <prezzoUnitario>89.90</prezzoUnitario>
+        <nome>Shokz OpenRun cuffie a conduzione ossea</nome>
+        <prezzoUnitario>139.90</prezzoUnitario>
         <quantita>1</quantita>
         <immagine>https://target.scene7.com/is/image/Target/GUEST_1c89998c-cfa2-439a-b99f-567399cb5402?wid=1000&amp;hei=1000</immagine>
     </elemento>
 
     <elemento>
         <idProdotto>3</idProdotto>
-        <nome>Smartwatch fitness</nome>
-        <prezzoUnitario>129.00</prezzoUnitario>
+        <nome>Oura Gen3 Heritage</nome>
+        <prezzoUnitario>279.00</prezzoUnitario>
         <quantita>2</quantita>
         <immagine>https://target.scene7.com/is/image/Target/GUEST_b04c3def-e409-4419-a972-9f3a74d972b6?wid=1000&amp;hei=1000</immagine>
     </elemento>
