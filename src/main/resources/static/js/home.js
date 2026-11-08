@@ -65,9 +65,6 @@ $(document).ready(function() {
         applyFiltersAndRender();
     });
 
-    $("#loadMoreBtn").on("click", function() {
-        loadProductsFromXML("xml/prodotti2.xml", () => { $(this).hide(); });
-    });
 
     // ==========================================
     // LOGICA PREFERITI (invariata)
@@ -123,6 +120,12 @@ $(document).ready(function() {
 
             $("#modalAddToCartBtn").data("id", prodotto.id);
             $("#modalInfo").css("display", "flex");
+        }
+    });
+
+    $(document).on('keydown', function(e) {
+        if (e.key === "Escape") {
+            $("#modalInfo").hide();
         }
     });
 
@@ -278,7 +281,8 @@ function applyFiltersAndRender() {
     const sortMode = $("#sortFilter").val();
 
     let filteredArray = prodotti.filter(prodotto => {
-        const matchText = prodotto.name.toLowerCase().includes(searchText);
+        // matchText con name, descrizione o brand (requisito 3.5 primo assignment)
+        const matchText = prodotto.name.toLowerCase().includes(searchText) || prodotto.descrizione.toLowerCase().includes(searchText) || prodotto.brand.toLowerCase().includes(searchText);
         const matchCategory = (prodotto.category === currentCategory);
         const matchFav = showOnlyFavorites ? favorites.includes(prodotto.id) : true;
         return matchText && matchCategory && matchFav;
@@ -290,6 +294,8 @@ function applyFiltersAndRender() {
         filteredArray.sort((a, b) => b.price - a.price);
     } else if (sortMode === "nameAsc") {
         filteredArray.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortMode === "nameDesc") {
+        filteredArray.sort((a, b) => b.name.localeCompare(a.name));
     }
 
     renderProducts(filteredArray);
